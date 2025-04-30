@@ -10,11 +10,11 @@ class CreateClinicsTable extends Migration
     {
         Schema::create('clinics', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // اسم العيادة
-            $table->text('location'); // موقع العيادة
-            $table->string('contact_number', 20)->nullable(); // رقم الهاتف الخاص بالعيادة
-            $table->text('facilities')->nullable(); // أنواع الخدمات المتاحة في العيادة
-            $table->timestamps(0); // إنشاء timestamps مع precision 0 (لا يوجد جزء عشري)
+            $table->string('name'); 
+            $table->text('location'); 
+            $table->string('contact_number', 20)->nullable();
+            $table->text('facilities')->nullable();
+            $table->timestamps(0); 
         });
     }
 

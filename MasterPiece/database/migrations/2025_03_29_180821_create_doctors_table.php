@@ -26,7 +26,6 @@ class CreateDoctorsTable extends Migration
             $table->string('image')->nullable();
             $table->integer('experience')->nullable(); // عدد سنوات الخبرة
             $table->json('working_days')->nullable(); // الأيام التي يعمل فيها الطبيب
-            $table->string('profile_picture')->nullable(); // صورة ملف الطبيب الشخصي
         });
     }
 

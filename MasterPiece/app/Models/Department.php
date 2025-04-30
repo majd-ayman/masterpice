@@ -11,7 +11,12 @@ class Department extends Model
     
 
     protected $fillable = [
-        'name',
-        'description',
+        'name', 'description', 'image', 'services', 'services_features','long_description'
+
+
     ];
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
+    }
 }

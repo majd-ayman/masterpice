@@ -10,7 +10,7 @@ class MedicalRecord extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patient_id',
+        'user_id',
         'doctor_id',
         'diagnosis',
         'prescription',
@@ -18,13 +18,12 @@ class MedicalRecord extends Model
         'record_date',
     ];
 
-    // ✅ علاقة مع المريض (Patient وليس User)
-    public function patient()
+    public function user()
     {
-        return $this->belongsTo(Patient::class, 'patient_id');
+        return $this->belongsTo(User::class);
     }
+    
 
-    // ✅ علاقة مع الطبيب
     public function doctor()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id');

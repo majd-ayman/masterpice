@@ -1,31 +1,43 @@
 <?php
-namespace App\Models;
 
+namespace App\Models;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    use HasFactory;
+
+    use HasFactory, SoftDeletes; 
 
     protected $fillable = [
-        'patient_id', 
-        'doctor_id', 
-        'appointment_date', 
-        'appointment_time', 
+        'user_id', 
+        'doctor_id',
+        'clinic_id',
+        'appointment_date',
+        'appointment_time',
         'status',
+        'appointment_type',
+        'notes',
     ];
 
-    // علاقة مع المستخدم (المريض)
-    public function patient()
-{
-    return $this->belongsTo(Patient::class, 'patient_id');
-}
-
-
-    // علاقة مع الطبيب
     public function doctor()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id');
     }
+
+    public function clinic()
+    {
+        return $this->belongsTo(Clinic::class, 'clinic_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');  
+    }
+public function reviews()
+{
+    return $this->hasMany(Review::class);
+}
+
 }

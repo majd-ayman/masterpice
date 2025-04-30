@@ -11,9 +11,8 @@ class Patient extends Model
     protected $table = 'patients';
 
     protected $fillable = [
-        'user_id', 
-        'date_of_birth', // تأكد من أنه يتطابق مع اسم الحقل في قاعدة البيانات
-        'gender'
+      'name', 'user_id', 'doctor_id', 'date_of_birth', 'gender', 
+        'phone', 'address', 'medical_notes', 'emergency_contact', 'insurance_details'
     ];
 
     // العلاقة مع الأطباء الذين حجز عندهم المريض
@@ -28,5 +27,9 @@ class Patient extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
     }
 }

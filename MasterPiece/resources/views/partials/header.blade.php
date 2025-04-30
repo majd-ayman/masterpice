@@ -1,84 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+  <meta name="author" content="themefisher.com">
+
+  <title>Masterpice</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+  <!-- Slick Slider  CSS -->
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+ 
+  <style>
+    .btn-custom {
+        background-color: #e12454;
+        color: white;
+        border-radius: 50px;
+        padding: 10px 30px;
+        transition: background-color 0.3s ease;
+        margin: 5px;
+    }
+
+    .dropdown-menu {
+        background-color: white;
+        min-width: 160px;
+        border: none;
+        padding: 10px 0;
+    }
+
+    .dropdown-item {
+        color: #333;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        font-weight: 500;
+    }
+
+    .dropdown-item:hover {
+        color: white;
+        border-radius: 0;
+    }
+
+    .navbar-nav .nav-item {
+        margin-right: 20px;
+    }
+
+    .navbar-nav .nav-item:last-child {
+        margin-right: 0;
+    }
+</style>
+
+</head>
+
+<body id="top">
+
 <header>
-    <div class="header-top-bar">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <ul class="top-bar-info list-inline-item pl-0 mb-0">
-                        <li class="list-inline-item"><a href="mailto:support@gmail.com"><i class="icofont-support-faq mr-2"></i>support@novena.com</a></li>
-                        <li class="list-inline-item"><i class="icofont-location-pin mr-2"></i> Address: University Street, Amman, Jordan </li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <div class="text-lg-right top-right-bar mt-2 mt-lg-0">
-                        <a href="tel:+23-345-67890" >
-                            <span>Call Now : </span>
-                            <span class="h4">077-0467-339</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <nav class="navbar navbar-expand-lg navigation" id="navbar">
-        <div class="container">
-             <a class="navbar-brand" href="index.html">
-                <img src="images/logo.png" alt="" class="img-fluid">
-              </a>
+        <div class="container d-flex justify-content-between align-items-center">
 
-           <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="icofont-navigation-menu"></span>
-          </button>
-      
-          <div class="collapse navbar-collapse" id="navbarmain">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="{{route('index')}}">Home</a>
-              </li>
-               <li class="nav-item"><a class="nav-link" href="{{route('about')}}">About</a></li>
+            <!-- الجهة اليسار (مكان اللوجو) -->
+            <a class="navbar-brand" href="{{ route('index') }}">
+                <!-- أضف صورة اللوجو هنا -->
+                <img src="{{ asset('images/calmoram.png') }}" alt="Logo" height="50">
+            </a>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('department')}}">Department</a>
-                </li>
-                
+            <!-- روابط التنقل في المنتصف -->
+            <div class="mx-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item active"><a class="nav-link" href="{{route('index')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('about')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('service')}}">services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('department')}}">Department</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('doctor')}}">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('contact.show') }}">Contact</a></li>
+                </ul>
+            </div>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('doctor')}}">Doctors</a>
-                </li>
-                
-
-               <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog <i class="icofont-thin-down"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                        <li><a class="dropdown-item" href="{{route('blog-sidebar')}}">Blog with Sidebar</a></li>
-
-                        <li><a class="dropdown-item" href="{{route('blog-single')}}">Blog Single</a></li>
-                    </ul>
-              	</li>
-               <li class="nav-item"><a class="nav-link" href="{{route('contact')}}">Contact</a></li>
-
-               <!-- زر Login و Register -->
-               @if(Auth::check())
-                    <!-- إذا كان المستخدم مسجلاً دخوله، عرض My Account و Logout -->
-                    <li class="nav-item">
-                        <a class="btn btn-custom" href="{{route('my-account')}}">My Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="btn btn-custom">Logout</button>
-                        </form>
+            <!-- الجهة اليمين (Login / User dropdown) -->
+            <div class="ml-auto">
+                @if(Auth::check())
+                    <li class="nav-item dropdown list-unstyled d-inline-block">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, {{ Auth::user()->name }}!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAccount">
+                            <li><a class="dropdown-item" href="{{route('user-account.my-account')}}">My Account</a></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item btn-custom">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                 @else
-                    <!-- إذا كان المستخدم غير مسجل دخول، عرض Login و Register -->
-                    <li class="nav-item">
-                        <a class="btn btn-custom" href="{{route('login')}}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-custom" href="{{route('register')}}">Register</a>
-                    </li>
+                    <a class="btn btn-custom" href="{{route('login')}}">Login</a>
                 @endif
-            </ul>
-          </div>
+            </div>
+
         </div>
     </nav>
 </header>
+
+<!-- باقي محتوى الصفحة -->
+
+<!-- Scripts -->
+<script src="plugins/jquery/jquery.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>

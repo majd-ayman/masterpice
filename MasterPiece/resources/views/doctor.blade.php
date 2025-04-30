@@ -1,295 +1,202 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
-  <meta name="author" content="themefisher.com">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+    <meta name="author" content="themefisher.com">
 
-  <title>Masterpice</title>
+    <title>Masterpice</title>
 
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-  <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
-  <!-- Icon Font Css -->
-  <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
-  <!-- Slick Slider  CSS -->
-  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
-  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Icon Font Css -->
+    <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+    <!-- Slick Slider  CSS -->
+    <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
+<style>
+    .star {
+    font-size: 20px;
+    color: #ccc; /* لون النجمة الفارغة */
+}
 
+.star.filled {
+    color: #FFD700; /* لون الذهب للنجمة الممتلئة */
+}
+
+    </style>
 <body id="top">
 
-	@include('partials.header')
-	
+{{-- @include('partials.header')  --}}
 
 
-<section class="page-title bg-1">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block text-center">
-          <span class="text-white">All Doctors</span>
-          <h1 class="text-capitalize mb-5 text-lg">Specalized doctors</h1>
 
-          <!-- <ul class="list-inline breadcumb-nav">
-            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
-            <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="#" class="text-white-50">All Doctors</a></li>
-          </ul> -->
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- portfolio -->
-<section class="section doctors">
-  <div class="container">
-  	  <div class="row justify-content-center">
-             <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h2>Doctors</h2>
-                    <div class="divider mx-auto my-4"></div>
-                    <p>We provide a wide range of creative services adipisicing elit. Autem maxime rem modi eaque, voluptate. Beatae officiis neque </p>
+    <section class="page-title bg-1">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block text-center">
+                        <span class="text-white">All Doctors</span>
+                        <h1 class="text-capitalize mb-5 text-lg">Specalized doctors</h1>
+                    </div>
                 </div>
             </div>
         </div>
-
-      <div class="col-12 text-center  mb-5">
-	        <div class="btn-group btn-group-toggle " data-toggle="buttons">
-	          <label class="btn active ">
-	            <input type="radio" name="shuffle-filter" value="all" checked="checked" />All Department
-	          </label>
-	          <label class="btn ">
-	            <input type="radio" name="shuffle-filter" value="cat1" />Cardiology
-	          </label>
-	          <label class="btn">
-	            <input type="radio" name="shuffle-filter" value="cat2" />Dental
-	          </label>
-	          <label class="btn">
-	            <input type="radio" name="shuffle-filter" value="cat3" />Neurology
-	          </label>
-	          <label class="btn">
-	            <input type="radio" name="shuffle-filter" value="cat4" />Medicine
-	          </label>
-	           <label class="btn">
-	            <input type="radio" name="shuffle-filter" value="cat5" />Pediatric
-	          </label>
-	          <label class="btn">
-	            <input type="radio" name="shuffle-filter" value="cat6" />Traumatology
-	          </label>
-	        </div>
-      </div>
-
-    <div class="row shuffle-wrapper portfolio-gallery">
-      	<div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat1&quot;,&quot;cat2&quot;]">
-	      	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-	               <div class="doctor-img">
-	               		<img src="images/team/1.jpg" alt="doctor-image" class="img-fluid w-100">
-	               </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Thomas Henry</a></h4>
-                	<p>Cardiology</p>
-                </div> 
-	      	</div>
-      	</div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat2&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/2.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-					<h4 class="mb-0"><a href="{{route('doctor-single')}}">Harrision Samuel</a></h4>
+    </section> 
 
 
-                	<p>Radiology</p>
-                </div> 
-	      	</div>
-      </div>
+    <!-- portfolio -->
+     <section class="section doctors">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h2>Doctors</h2>
+                        <div class="divider mx-auto my-4"></div>
+                        <p>
+                            We offer a variety of creative medical services
+                            Our skilled doctors provide personalized, high-quality healthcare using advanced techniques.
+                        </p>
+                    </div>
+                </div>
+            </div> 
+            <!-- الفلاتر -->
+  <!-- الفلاتر -->
+<div class="col-12 text-center mb-5">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn active">
+            <input type="radio" name="shuffle-filter" value="all" checked />All Clinics
+        </label>
 
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat3&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/3.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Alexandar James</a></h4>
-                	<p>Dental</p>
-                </div> 
-	      	</div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat3&quot;,&quot;cat4&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/4.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Edward john</a></h4>
-                	<p>Pediatry</p>
-                </div> 
-	      	</div>
-      </div>
-
-      	<div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat5&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/1.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Thomas Henry</a></h4>
-                	<p>Neurology</p>
-                </div> 
-	      	</div>
-      	</div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat6&quot;]">
-       		 <div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/3.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Henry samuel</a></h4>
-                	<p>Palmology</p>
-                </div> 
-	      	</div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat4&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/1.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Thomas alexandar</a></h4>
-                	<p>Cardiology</p>
-                </div> 
-	        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat5&quot;,&quot;cat6&quot;,&quot;cat1&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/3.jpg" alt="doctor-image" class="img-fluid w-100">
-		             </div>
-	             </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">HarissonThomas </a></h4>
-                	<p>Traumatology</p>
-                </div> 
-	      	</div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item illustration" data-groups="[&quot;cat2&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/4.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Jonas Thomson</a></h4>
-                	<p>Cardiology</p>
-                </div> 
-	      	</div>
-        </div>
-
-         <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat5&quot;,&quot;cat6&quot;,&quot;cat1&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/3.jpg" alt="doctor-image" class="img-fluid w-100">
-		            </div>
-	            </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Henry Forth</a></h4>
-                	<p>hematology</p>
-                </div> 
-	      	</div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item illustration" data-groups="[&quot;cat2&quot;]">
-        	<div class="position-relative doctor-inner-box">
-		        <div class="doctor-profile">
-		        	<div class="doctor-img">
-		               <img src="images/team/4.jpg" alt="doctor-image" class="img-fluid w-100">
-		             </div>
-	             </div>
-                <div class="content mt-3">
-                	<h4 class="mb-0"><a href="doctor-single.html">Thomas Henry</a></h4>
-                	<p>Dental</p>
-                </div> 
-	      	</div>
-        </div>
+        @foreach ($clinics as $clinic)
+            <label class="btn">
+                <input type="radio" name="shuffle-filter" value="{{ $clinic->id }}" />{{ $clinic->name }}
+            </label>
+        @endforeach
     </div>
-  </div>
-</section>
-<!-- /portfolio -->
-<section class="section cta-page">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-7">
-				<div class="cta-content">
-					<div class="divider mb-4"></div>
-					<h2 class="mb-5 text-lg">We are pleased to offer you the <span class="title-color">chance to have the healthy</span></h2>
-					<a href="{{route('appoinment')}}" class="btn btn-main-2 btn-round-full">Get appoinment<i class="icofont-simple-right  ml-2"></i></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+</div> 
 
-   <!-- footer Start -->
-   @include('partials.footer')
 
-    <!-- 
-    Essential Scripts
-    =====================================-->
+            <!-- قائمة الأطباء -->
+         <div class="row" id="doctor-list">
+                @foreach ($doctors as $doctor)
+                    <div class="col-lg-4 doctor-card" data-clinic="{{ $doctor->clinic_id }}">
+                        <div class="card mb-4">
+                            <img src="{{ asset('images/team/' . $doctor->image) }}" class="card-img-top" alt="Doctor Image" style="height: 350px; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    {{ $doctor->name }}
+                                </h5>
+                                <p>Specialty: {{ $doctor->specialty }}</p> <!-- عرض التخصص هنا -->
+                                <p>Clinic: {{ $doctor->clinic->name }}</p> <!-- عرض اسم العيادة -->
+                
+                                <!-- عرض عدد النجوم -->
+                                <div class="rating">
+                                    @for ($i = 0; $i < 5; $i++)
+                                        @if ($i < $doctor->average_rating)
+                                            <span class="star filled">&#9733;</span> <!-- النجمة المملوءة -->
+                                        @else
+                                            <span class="star">&#9734;</span> <!-- النجمة الفارغة -->
+                                        @endif
+                                    @endfor
+                                    <div>
+                                        
+                                        
+                                        <a href="/doctor/{{ $doctor->id }}" class="btn btn-primary mt-2">
+                                            View Profile
+                                        </a>
+                                                                            
+                                    
+                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            
+            
+        </div>
+        </div>
+    </section> 
+
+
+
+
+
+
+
+
+
+
+
+    <!-- /portfolio -->
+     <section class="section cta-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="cta-content">
+                        <div class="divider mb-4"></div>
+                        <h2 class="mb-5 text-lg">We are pleased to offer you the <span class="title-color">chance to
+                                have the healthy</span></h2>
+                        <a href="{{route('appointment.create')}}" class="btn btn-main-2 btn-round-full">Get appoinment<i class="icofont-simple-right  ml-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+
+
+
+
+    <!-- footer Start -->
+     @include('partials.footer') 
 
     
-    <!-- Main jQuery -->
-    <script src="plugins/jquery/jquery.js"></script>
-    <!-- Bootstrap 4.3.2 -->
-    <script src="plugins/bootstrap/js/popper.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugins/counterup/jquery.easing.js"></script>
-    <!-- Slick Slider -->
-    <script src="plugins/slick-carousel/slick/slick.min.js"></script>
-    <!-- Counterup -->
-    <script src="plugins/counterup/jquery.waypoints.min.js"></script>
-    
-    <script src="plugins/shuffle/shuffle.min.js"></script>
-    <script src="plugins/counterup/jquery.counterup.min.js"></script>
-    <!-- Google Map -->
-    <script src="plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
-    
-    <script src="js/script.js"></script>
-    <script src="js/contact.js"></script>
 
-  </body>
-  </html>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filters = document.querySelectorAll('input[name="shuffle-filter"]');
+            const doctors = document.querySelectorAll('.doctor-card');
+    
+            filters.forEach(filter => {
+                filter.addEventListener('click', function () {
+                    const selected = this.value;
+    
+                    // تغيير الشكل النشط للزر
+                    filters.forEach(f => f.closest('label').classList.remove('active'));
+                    filter.closest('label').classList.add('active');
+    
+                    // فلترة الأطباء
+                    doctors.forEach(card => {
+                        const clinicId = card.getAttribute('data-clinic');
+    
+                        if (selected === 'all' || selected === clinicId) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    
+
+</body>
+
+</html> 

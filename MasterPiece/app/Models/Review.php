@@ -4,22 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'patient_id',
+        'user_id',
         'doctor_id',
         'rating',
         'comment',
+        'appointment_id'
     ];
 
-    // علاقة مع المريض (يجب أن يكون Patient وليس User)
-    public function patient()
+    protected $dates = ['deleted_at'];
+
+    // علاقة مع المستخدم
+    public function user()
     {
-        return $this->belongsTo(Patient::class, 'patient_id');
+        return $this->belongsTo(User::class);
+    }
+
+    // علاقة مع الموعد
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
     }
 
     // علاقة مع الطبيب

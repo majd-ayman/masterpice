@@ -26,8 +26,9 @@ class Payment extends Model
     }
 
     // علاقة مع المريض (باستخدام موديل Patient)
-    public function patient()
+    public function user()
     {
-        return $this->belongsTo(Patient::class, 'patient_id');
+        return $this->belongsTo(User::class);
     }
+    
 }

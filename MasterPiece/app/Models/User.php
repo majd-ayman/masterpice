@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Appointment;
+use App\Models\Review;
 
 class User extends Authenticatable
 {
@@ -21,7 +22,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'address',
+        'gender',
+        'profile_picture',
+        'age',
+        'role', 
     ];
 
     /**
@@ -43,4 +49,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get all appointments for the doctor.
+     */
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'user_id');
+    }
+
+    /**
+     * Get all reviews for the doctor.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'doctor_id');
+    }
+
+    public function doctor()
+{
+    return $this->hasOne(Doctor::class);
+}
+
 }
