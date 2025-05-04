@@ -50,11 +50,14 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <div class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                    <a href="#">
+                        <img src="{{ asset('images/calmoram.png') }}" alt="Site Logo" style="height: 50px;">
+                    </a>
                 </div>
 
                 @php
                     $user = Auth::user();
+                    $doctor = $user->doctor ?? null; // Assuming the user has a doctor relationship
                 @endphp
 
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -67,14 +70,22 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">{{ $user ? $user->name : 'Guest' }}</h6>
+                        <h6 class="mb-0">{{ $doctor ? $doctor->name : 'Guest' }}</h6>
                         <span>Doctor</span>
                     </div>
                 </div>
+                <style>
+                    .nav-item {
+                        color: black;
+                    }
+
+                    .nav-item i {
+                        color: red;
+                    }
+                </style>
 
 
-
-                <ul>
+                <ul class="navbar-nav">
                     <li>
                         <a href="{{ route('doctor.dashboard') }}" class="nav-item nav-link">
                             <i class="fa fa-chart-bar me-2"></i> Dashboard
@@ -82,7 +93,11 @@
                         <a href="{{ route('doctor.edit.info') }}" class="nav-item nav-link">
                             <i class="fa fa-edit me-2"></i> Edit Profile
                         </a>
+                      
                     </li>
+
+
+
                 </ul>
                 
 
@@ -151,6 +166,7 @@
                     @php
                         use Illuminate\Support\Facades\Auth;
                         $user = Auth::user();
+                        $doctor = $user->doctor ?? null;
                     @endphp
 
                     <div class="nav-item dropdown">
@@ -158,7 +174,7 @@
                             <img class="rounded-circle"
                                 src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
                                 alt="User" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{ $user ? $user->name : 'Guest' }}</span>
+                            <span class="d-none d-lg-inline-flex">{{ $doctor ? $doctor->name : 'Guest' }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>

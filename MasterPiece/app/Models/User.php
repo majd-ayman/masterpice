@@ -8,10 +8,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Appointment;
 use App\Models\Review;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -70,5 +72,10 @@ class User extends Authenticatable
 {
     return $this->hasOne(Doctor::class);
 }
+public function medicalHistories()
+{
+    return $this->hasMany(MedicalHistory::class);
+}
+
 
 }

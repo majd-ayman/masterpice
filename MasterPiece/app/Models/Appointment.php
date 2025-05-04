@@ -39,5 +39,9 @@ public function reviews()
 {
     return $this->hasMany(Review::class);
 }
+public function medicalHistories()
+{
+    return $this->hasMany(MedicalHistory::class);
+}
 
 }

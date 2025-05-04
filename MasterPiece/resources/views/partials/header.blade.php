@@ -64,37 +64,52 @@
 
 <body id="top">
 
+
 <header>
     <nav class="navbar navbar-expand-lg navigation" id="navbar">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <!-- الجهة اليسار (مكان اللوجو) -->
             <a class="navbar-brand" href="{{ route('index') }}">
-                <!-- أضف صورة اللوجو هنا -->
                 <img src="{{ asset('images/calmoram.png') }}" alt="Logo" height="50">
             </a>
 
-            <!-- روابط التنقل في المنتصف -->
             <div class="mx-auto">
                 <ul class="navbar-nav">
-                    <li class="nav-item active"><a class="nav-link" href="{{route('index')}}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('about')}}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('service')}}">services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('department')}}">Department</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('doctor')}}">Doctors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('contact.show') }}">Contact</a></li>
+                    <li class="nav-item {{ request()->routeIs('index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('about') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('about') }}">About</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('service') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('service') }}">Services</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('department') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('department') }}">Department</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('doctor') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('doctor') }}">Doctors</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('contact.show') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('contact.show') }}">Contact</a>
+                    </li>
                 </ul>
             </div>
 
-            <!-- الجهة اليمين (Login / User dropdown) -->
             <div class="ml-auto">
                 @if(Auth::check())
-                    <li class="nav-item dropdown list-unstyled d-inline-block">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hello, {{ Auth::user()->name }}!
+                    <li class="nav-item dropdown list-unstyled d-inline-block {{ request()->is('user-account*') ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img 
+                                src="{{ Auth::user()->profile_picture ? asset('storage/profile_pictures/' . Auth::user()->profile_picture) : asset('images/user.jpg') }}" 
+                                alt="User" 
+                                class="rounded-circle" 
+                                width="50" height="50" 
+                                style="object-fit: cover; margin-right: 8px;">
+                            {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAccount">
-                            <li><a class="dropdown-item" href="{{route('user-account.my-account')}}">My Account</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user-account.my-account') }}">My Account</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                     @csrf
@@ -104,7 +119,7 @@
                         </ul>
                     </li>
                 @else
-                    <a class="btn btn-custom" href="{{route('login')}}">Login</a>
+                    <a class="btn btn-custom" href="{{ route('login') }}">Login</a>
                 @endif
             </div>
 
@@ -112,9 +127,15 @@
     </nav>
 </header>
 
-<!-- باقي محتوى الصفحة -->
+<style>
+.nav-item.active .nav-link {
+    color: #e12454;
+    font-weight: bold;
+    border-bottom: 2px solid #e12454;
+}
+</style>
 
-<!-- Scripts -->
+
 <script src="plugins/jquery/jquery.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 

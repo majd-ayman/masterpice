@@ -23,42 +23,88 @@ class DoctorManagementController extends Controller
         $departments = Department::all();
         return view('superAdmin.doctors.create', compact('clinics', 'departments'));
     }
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+            
+    //         'email' => 'required|email|unique:users,email', 
+    //         'password' => 'required|string|min:8', 
+    //         'clinic_id' => 'required|exists:clinics,id', 
+    //         'department_id' => 'required|exists:departments,id', 
+    //     ]);
+    
+    //     $clinic = Clinic::find($request->clinic_id);
+    
+    //     // إنشاء المستخدم (الطبيب) في جدول المستخدمين
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password), // تشفير كلمة السر
+    //         'role' => 'doctor',  // تعيين دور المستخدم كـ 'doctor'
+    //     ]);
+    
+    //     // الآن يتم إضافة الطبيب إلى جدول الأطباء
+    //     $doctor = Doctor::create([
+    //         'user_id' => $user->id,  // ربط الطبيب بالمستخدم
+    //         'clinic_id' => $clinic->id,  // ربط الطبيب بالعيادة
+    //         'department_id' => $request->department_id,  // ربط الطبيب بالقسم
+    //         'name' => $request->name,  // اسم الطبيب
+    //     ]);
+    
+    //     // التحقق من أن البيانات تم إضافتها بنجاح
+    //     // dd($doctor);  // عرض بيانات الطبيب الذي تم إضافته للتحقق من النجاح
+    
+    //     return redirect()->route('superAdmin.doctors.index')->with('success', 'Doctor added successfully');
+    // }
+    
+    
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            
-            'email' => 'required|email|unique:users,email', 
-            'password' => 'required|string|min:8', 
-            'clinic_id' => 'required|exists:clinics,id', 
-            'department_id' => 'required|exists:departments,id', 
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'clinic_id' => 'required|exists:clinics,id',
+            'department_id' => 'required|exists:departments,id',
+            'phone' => 'nullable|string|max:20',
+            'specialty' => 'nullable|string|max:100',
+            'available_from' => 'nullable|date_format:H:i',
+            'available_to' => 'nullable|date_format:H:i',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
     
-        $clinic = Clinic::find($request->clinic_id);
-    
-        // إنشاء المستخدم (الطبيب) في جدول المستخدمين
+        // إنشاء المستخدم
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // تشفير كلمة السر
-            'role' => 'doctor',  // تعيين دور المستخدم كـ 'doctor'
+            'password' => bcrypt($request->password),
+            'role' => 'doctor',
         ]);
     
-        // الآن يتم إضافة الطبيب إلى جدول الأطباء
-        $doctor = Doctor::create([
-            'user_id' => $user->id,  // ربط الطبيب بالمستخدم
-            'clinic_id' => $clinic->id,  // ربط الطبيب بالعيادة
-            'department_id' => $request->department_id,  // ربط الطبيب بالقسم
-            'name' => $request->name,  // اسم الطبيب
-        ]);
+        // معالجة الصورة
+        $fileName = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/team'), $fileName);
+        }
     
-        // التحقق من أن البيانات تم إضافتها بنجاح
-        // dd($doctor);  // عرض بيانات الطبيب الذي تم إضافته للتحقق من النجاح
+        // إنشاء الطبيب
+        Doctor::create([
+            'user_id' => $user->id,
+            'clinic_id' => $request->clinic_id,
+            'department_id' => $request->department_id,
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'specialty' => $request->specialty,
+            'available_from' => $request->available_from,
+            'available_to' => $request->available_to,
+            'image' => $fileName, // حفظ اسم الصورة فقط
+        ]);
     
         return redirect()->route('superAdmin.doctors.index')->with('success', 'Doctor added successfully');
     }
-    
-    
     
     public function edit($id)
     {

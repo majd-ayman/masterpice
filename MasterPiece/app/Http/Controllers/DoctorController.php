@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    public function about() // aboutus page
+    public function about() 
     {
         $doctors = Doctor::take(4)->get(); 
         $reviews = Review::with('user') 
@@ -32,26 +32,24 @@ class DoctorController extends Controller
             if ($doctor->reviews->isNotEmpty()) {
                 $doctor->average_rating = $doctor->reviews->avg('rating'); 
             } else {
-                $doctor->average_rating = 'لا توجد تقييمات بعد'; // إذا لم يكن هناك تقييمات
+                $doctor->average_rating = 'There are no reviews yet.'; 
             }
         }
 
-        return view('doctor', compact('clinics', 'doctors')); // تمرير الأطباء والعيادات للـ view
+        return view('doctor', compact('clinics', 'doctors')); 
     }
     
     public function shows($id)
     {
-        $doctor = Doctor::findOrFail($id); // جلب بيانات الطبيب بناءً على الـ ID
+        $doctor = Doctor::findOrFail($id); 
 
-        // جلب التعليقات المرتبطة بالطبيب
         $reviews = Review::where('doctor_id', $doctor->id)
                          ->with('user', 'appointment')
                          ->latest()
                          ->get();
 
         // إضافة فحص في حالة عدم وجود مراجعات
-        $reviewsMessage = $reviews->isEmpty() ? 'لا توجد تعليقات لهذا الطبيب بعد' : null;
-    
+        $reviewsMessage = $reviews->isEmpty() ? 'There are no reviews for this doctor yet' : null;    
         
         return view('doctor-single', compact('doctor', 'reviews', 'reviewsMessage')); 
     }

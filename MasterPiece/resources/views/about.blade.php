@@ -32,7 +32,7 @@
 
     <section class="page-title bg-1">
         <div class="overlay"></div>
-        <div class="container">
+        <div class="container ">
             <div class="row">
                 <div class="col-md-12">
                     <div class="block text-center">
@@ -61,39 +61,53 @@
 
 
     <section class="fetaure-page ">
+        <style>
+            .feature-desc {
+                min-height: 120px;
+            }
+        </style>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="about-block-item mb-5 mb-lg-0">
                         <img src="images/about/about-1.jpg" alt="" class="img-fluid w-100">
                         <h4 class="mt-3">Healthcare for Kids</h4>
-                        <p>Voluptate aperiam esse possimus maxime repellendus, nihil quod accusantium .</p>
+                        <p class="feature-desc">
+                            We offer medical services for children, including checkups, vaccinations, and treatments under pediatric supervision.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="about-block-item mb-5 mb-lg-0">
                         <img src="images/about/about-2.jpg" alt="" class="img-fluid w-100">
-                        <h4 class="mt-3">Medical Counseling</h4>
-                        <p>Voluptate aperiam esse possimus maxime repellendus, nihil quod accusantium .</p>
+                        <h4 class="mt-3">Body Surgery</h4>
+                        <p class="feature-desc">
+                            We provide surgical procedures to enhance appearance and treat conditions, including tummy tucks and fat removal.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="about-block-item mb-5 mb-lg-0">
                         <img src="images/about/about-3.jpg" alt="" class="img-fluid w-100">
-                        <h4 class="mt-3">Modern Equipments</h4>
-                        <p>Voluptate aperiam esse possimus maxime repellendus, nihil quod accusantium .</p>
+                        <h4 class="mt-3">Neurological Surgery</h4>
+                        <p class="feature-desc">
+                            We specialize in brain, spine, and nervous system surgery, including tumor removal and nerve pain treatment.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="about-block-item">
                         <img src="images/about/about-4.jpg" alt="" class="img-fluid w-100">
-                        <h4 class="mt-3">Qualified Doctors</h4>
-                        <p>Voluptate aperiam esse possimus maxime repellendus, nihil quod accusantium .</p>
+                        <h4 class="mt-3">Gynecology</h4>
+                        <p class="feature-desc">
+                            Comprehensive women’s health services, including prenatal care, fertility consultations, and menstrual disorder treatment.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
 
 
 

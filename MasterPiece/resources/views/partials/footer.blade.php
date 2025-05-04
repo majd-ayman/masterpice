@@ -30,19 +30,20 @@
 			</div>
 
 			<!-- Departments - Center -->
-<div class="col-lg-3 col-sm-6 order-lg-2 text-lg-start">
-    <div class="widget mb-3">
-        <h5 class="text-capitalize mb-2">Departments</h5>
-        <div class="divider mb-3" style="width: 60px;"></div>
-        <ul class="list-unstyled lh-lg" style="font-size: 16px;">
-            <li><a href="#" class="text-decoration-none text-dark">Cardiology</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">Child Care</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">Pulmology</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">Gynecology</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">Opthomology</a></li>
-        </ul>
-    </div>
-</div>
+			<div class="col-lg-3 col-sm-6 order-lg-2 text-lg-start">
+				<div class="widget mb-3">
+					<h5 class="text-capitalize mb-2">Departments</h5>
+					<div class="divider mb-3" style="width: 60px;"></div>
+					<ul class="list-unstyled lh-lg" style="font-size: 16px;">
+						<li><a href="{{ route('department') }}" class="text-decoration-none text-dark">Cardiology</a></li>
+						<li><a href="{{ route('department') }}" class="text-decoration-none text-dark">Child Care</a></li>
+						<li><a href="{{ route('department') }}" class="text-decoration-none text-dark">Pulmology</a></li>
+						<li><a href="{{ route('department') }}" class="text-decoration-none text-dark">Gynecology</a></li>
+						<li><a href="{{ route('department') }}" class="text-decoration-none text-dark">Opthomology</a></li>
+					</ul>
+				</div>
+			</div>
+
 
 
 			<!-- Logo and About - Left -->

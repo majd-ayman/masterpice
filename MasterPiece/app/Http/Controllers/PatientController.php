@@ -26,7 +26,6 @@ class PatientController extends Controller
         $user = Auth::user();
         $medicalRecord = MedicalRecord::where('user_id', $user->id)->latest()->first();
         $appointments = $user->appointments()->latest()->get();
-
         return view('user-account.my-account', compact('user', 'medicalRecord', 'appointments'));
     }
 

@@ -20,33 +20,28 @@ class Review extends Model
 
     protected $dates = ['deleted_at'];
 
-    // علاقة مع المستخدم
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // علاقة مع الموعد
     public function appointment()
     {
         return $this->belongsTo(Appointment::class);
     }
 
-    // علاقة مع الطبيب
     public function doctor()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 
-    // التحقق من التقييم (بين 1 و 5)
     public static function boot()
     {
         parent::boot();
 
         static::creating(function ($review) {
             if ($review->rating < 1 || $review->rating > 5) {
-                throw new \Exception("التقييم يجب أن يكون بين 1 و 5");
-            }
+                throw new \Exception("Rating must be between 1 and 5");            }
         });
     }
 }

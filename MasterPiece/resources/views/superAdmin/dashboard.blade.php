@@ -75,7 +75,7 @@
                 </thead>
                 <tbody>
 
-                    {{-- @foreach ($appointments as $appointment)
+                     @foreach ($appointments as $appointment)
                         <tr>
                             <td>{{ $appointment->user->name ?? 'N/A' }}</td>
                             <td>{{ $appointment->clinic->name ?? 'N/A' }}</td>
@@ -98,7 +98,7 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach 
                 </tbody>
             </table>
         </div>

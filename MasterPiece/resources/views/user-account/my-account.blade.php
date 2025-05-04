@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,12 +31,13 @@
 </head>
 
 <body>
-    
+
 
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -56,49 +56,62 @@
                 @php $user = Auth::user(); @endphp
 
                 {{-- Sidebar User Image --}}
-                
+
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         @php
-                        $user = Auth::user();
-                    @endphp
-                    
-                    <img class="rounded-circle" 
-                        src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}" 
-                        alt="User" style="width: 40px; height: 40px;">
-                                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                            $user = Auth::user();
+                        @endphp
+
+                        <img class="rounded-circle"
+                            src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                            alt="User" style="width: 40px; height: 40px;">
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">{{ $user ? $user->name : 'Guest' }}</h6>
                     </div>
                 </div>
-               
+
                 <style>
                     .nav-item {
-                        color: black; 
+                        color: black;
                     }
-                
+
                     .nav-item i {
-                        color: red; 
+                        color: red;
                     }
                 </style>
-                
-                <ul>
-                    <li>
-                        <a href="{{ route('user-account.my-account') }}" class="nav-item nav-link">
-                            <i class="fa fa-user-circle me-2"></i> My Account
-                        </a>
-                        <a href="{{ route('appointment.form') }}" class="nav-item nav-link">
-                            <i class="fa fa-calendar-plus me-2"></i> Book Appointment
-                        </a>
-                        <a href="{{ route('user-account.updateProfile') }}" class="nav-item nav-link">
-                            <i class="fa fa-edit me-2"></i> Edit Profile
-                        </a>
-                        <a href="{{ route('home') }}" class="nav-item nav-link">
-                            <i class="fa fa-sign-out-alt me-2"></i> Back
-                        </a>
-                    </li>
-                </ul>
+<ul class="navbar-nav">
+    <li>
+        <a href="{{ route('user-account.my-account') }}"
+           class="nav-item nav-link {{ request()->routeIs('user-account.my-account') ? 'active' : '' }}">
+            <i class="fa fa-user-circle me-2"></i> My Account
+        </a>
+
+        <a href="{{ route('book.now') }}"
+           class="nav-item nav-link {{ request()->routeIs('book.now') ? 'active' : '' }}">
+            <i class="fa fa-calendar-plus me-2"></i> Book Now
+        </a>
+
+        <a href="{{ route('user-account.editProfile') }}"
+           class="nav-item nav-link {{ request()->routeIs('user-account.editProfile') ? 'active' : '' }}">
+            <i class="fa fa-edit me-2"></i> Edit Profile
+        </a>
+
+        <a href="{{ route('user-account.medicalHistory') }}"
+           class="nav-item nav-link {{ request()->routeIs('user-account.medicalHistory') ? 'active' : '' }}">
+            <i class="fa fa-file-medical me-2"></i> Medical Records
+        </a>
+
+        <a href="{{ route('home') }}" class="nav-item nav-link">
+            <i class="fa fa-sign-out-alt me-2"></i> Back
+        </a>
+    </li>
+</ul>
+
 
             </nav>
         </div>
@@ -114,33 +127,31 @@
                 </a>
 
                 <form class="d-none d-md-flex ms-4" action="{{ route('user-account.search') }}" method="GET">
-                    <input 
-                        class="form-control border-0" 
-                        type="search" 
-                        name="query" 
+                    <input class="form-control border-0" type="search" name="query"
                         placeholder="Search appointments, doctors, clinics...">
                 </form>
-                
+
 
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 
-                            
+
                             @php
-                            $user = Auth::user();
-                        @endphp
-                        
-                        <img class="rounded-circle" 
-                            src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}" 
-                            alt="User" style="width: 40px; height: 40px;">
-                                                   
+                                $user = Auth::user();
+                            @endphp
+
+                            <img class="rounded-circle"
+                                src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                                alt="User" style="width: 40px; height: 40px;">
+
                             <span class="d-none d-lg-inline-flex">{{ $user ? $user->name : 'Guest' }}</span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a href="{{ route('logout') }}" class="dropdown-item"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Log Out
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -151,31 +162,31 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-            @if(isset($query))
-            <h5>Search Results for: "{{ $query }}"</h5>
-        
-            <h6>Appointments</h6>
-            @forelse ($appointments as $appointment)
-                <p>{{ $appointment->appointment_date }} - {{ $appointment->status }}</p>
-            @empty
-                <p>No appointments found.</p>
-            @endforelse
-        
-            <h6>Doctors</h6>
-            @forelse ($doctors as $doctor)
-                <p>{{ $doctor->name }} - {{ $doctor->specialty }}</p>
-            @empty
-                <p>No doctors found.</p>
-            @endforelse
-        
-            <h6>Clinics</h6>
-            @forelse ($clinics as $clinic)
-                <p>{{ $clinic->name }} - {{ $clinic->location }}</p>
-            @empty
-                <p>No clinics found.</p>
-            @endforelse
-        @endif
-        
+            @if (isset($query))
+                <h5>Search Results for: "{{ $query }}"</h5>
+
+                <h6>Appointments</h6>
+                @forelse ($appointments as $appointment)
+                    <p>{{ $appointment->appointment_date }} - {{ $appointment->status }}</p>
+                @empty
+                    <p>No appointments found.</p>
+                @endforelse
+
+                <h6>Doctors</h6>
+                @forelse ($doctors as $doctor)
+                    <p>{{ $doctor->name }} - {{ $doctor->specialty }}</p>
+                @empty
+                    <p>No doctors found.</p>
+                @endforelse
+
+                <h6>Clinics</h6>
+                @forelse ($clinics as $clinic)
+                    <p>{{ $clinic->name }} - {{ $clinic->location }}</p>
+                @empty
+                    <p>No clinics found.</p>
+                @endforelse
+            @endif
+
             <!-- Animation CSS -->
             <style>
                 .fade-in {
@@ -208,36 +219,30 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6"><strong>Phone:</strong> {{ $user->phone ?? 'Not Available' }}</div>
-                            <div class="col-md-6"><strong>Address:</strong> {{ $user->address ?? 'Not Available' }}</div>
+                            <div class="col-md-6"><strong>Address:</strong> {{ $user->address ?? 'Not Available' }}
+                            </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-md-6"><strong>Gender:</strong> {{ $user->gender == 'male' ? 'Male' : 'Female' }}</div>
+                            <div class="col-md-6"><strong>Gender:</strong>
+                                {{ $user->gender == 'male' ? 'Male' : 'Female' }}</div>
                             <div class="col-md-6"><strong>Age:</strong> {{ $user->age ?? 'Not Specified' }}</div>
                         </div>
 
-                            @if ($user->profile_picture)
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <strong>Profile Picture:</strong><br>
-                                        <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Current Profile Picture" class="profile-picture-preview">
-                                    </div>
+                        @if ($user->profile_picture)
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <strong>Profile Picture:</strong><br>
+                                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}"
+                                        alt="Current Profile Picture" class="profile-picture-preview">
                                 </div>
-                            @endif
+                            </div>
+                        @endif
 
-                        <a href="{{ route('user-account.editProfile') }}" class="btn btn-sm btn-primary mt-3">Edit Profile</a>
+                        <a href="{{ route('user-account.editProfile') }}" class="btn btn-sm btn-primary mt-3">Edit
+                            Profile</a>
                     </div>
                 </div>
 
-                {{-- <!-- Medical Record -->
-                @if ($medicalRecord)
-                    <div class="card mb-3">
-                        <div class="card-header">Medical Record</div>
-                        <div class="card-body">
-                            <p><strong>Details:</strong> {{ $medicalRecord->details }}</p>
-                            <p><strong>Last Updated:</strong> {{ $medicalRecord->updated_at->format('Y-m-d') }}</p>
-                        </div>
-                    </div>
-                @endif --}}
 
                 <!-- Appointments -->
                 <div class="card mb-3">
@@ -248,12 +253,13 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Date</th>
                                             <th>Clinic</th>
+                                            <th>Doctor</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
                                             <th>Status</th>
-                                            <th>Time</th> 
-                                            <th>Action</th> 
-                                            
+                                            <th>Action</th>
+
 
 
                                         </tr>
@@ -261,23 +267,38 @@
                                     <tbody>
                                         @foreach ($appointments as $appointment)
                                             <tr>
-                                                <td>{{ $appointment->appointment_date }}</td>
                                                 <td>{{ $appointment->clinic->name ?? 'Not Available' }}</td>
-                                                <td>{{ ucfirst($appointment->status) }}</td>
+                                                <td>{{ $appointment->doctor->name ?? 'Not Available' }}</td>
+
+                                                <td>{{ $appointment->appointment_date }}</td>
                                                 <td>{{ ucfirst($appointment->appointment_time) }}</td>
+
+                                                <td>{{ ucfirst($appointment->status) }}</td>
 
                                                 <td>
                                                     <!-- Delete Button -->
-                                                    <form action="{{ route('appointments.destroy', $appointment->id) }}" method="POST" style="display:inline-block;">
+                                                    {{-- <form action="{{ route('appointments.destroy', $appointment->id) }}" method="POST" style="display:inline-block;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
+                                                    </form> --}}
+                                                    <form id="delete-form-{{ $appointment->id }}"
+                                                        action="{{ route('appointments.destroy', $appointment->id) }}"
+                                                        method="POST" style="display:inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="confirmDelete({{ $appointment->id }})">Delete</button>
                                                     </form>
-                                                    <a href="{{ route('appointments.edit', $appointment->id) }}" class="btn btn-primary btn-sm" style="display:inline-block;">
+
+                                                    <a href="{{ route('myappointments.edit', $appointment->id) }}"
+                                                        class="btn btn-primary btn-sm" style="display:inline-block;">
                                                         Edit
                                                     </a>
+
+
                                                 </td>
-                                                
+
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -288,7 +309,34 @@
                         @endif
                     </div>
                 </div>
-                
+
+                <!-- Medical Record -->
+                @if ($medicalRecord)
+                    <div class="card mb-3">
+                        <div class="card-header">Medical Record</div>
+                        <div class="card-body">
+                            <p><strong>Diagnosis:</strong> {{ $medicalRecord->diagnosis }}</p>
+                            <p><strong>Prescription:</strong> {{ $medicalRecord->prescription }}</p>
+                            <p><strong>Treatment:</strong> {{ $medicalRecord->treatment }}</p>
+                            <p><strong>Diagnosis Date:</strong>
+                                {{ \Carbon\Carbon::parse($medicalRecord->diagnosis_date)->format('Y-m-d') }}</p>
+                            <p><strong>Record Date:</strong>
+                                {{ \Carbon\Carbon::parse($medicalRecord->record_date)->format('Y-m-d') }}</p>
+                            <p><strong>Follow Up:</strong> {{ $medicalRecord->follow_up }}</p>
+                            @if($medicalRecord->image)
+                            
+                            <img src="{{ asset('images/' . $medicalRecord->image) }}" alt="Medical Record Image" style="max-width: 300px;">
+                        @else
+                            <p>No image available.</p>
+                        @endif
+
+                    
+
+                            <p><strong>Last Updated:</strong> {{ $medicalRecord->updated_at->format('Y-m-d') }}</p>
+                        </div>
+                    </div>
+                @endif
+
 
             </div>
             <!-- End of Account Content -->
@@ -303,6 +351,7 @@
     <!-- SweetAlert Success Message -->
     @if (session('success'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script>
             Swal.fire({
                 icon: 'success',
@@ -313,6 +362,24 @@
             });
         </script>
     @endif
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You can't undo a deletion!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+    </script>
 
 </body>
 

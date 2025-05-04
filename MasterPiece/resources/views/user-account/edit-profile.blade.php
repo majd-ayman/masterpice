@@ -19,7 +19,15 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styleadmin.css') }}" rel="stylesheet">
 </head>
+   <style>
+                    .nav-item {
+                        color: black;
+                    }
 
+                    .nav-item i {
+                        color: red;
+                    }
+                </style>
 <body>
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
@@ -50,22 +58,34 @@
                 </div>
             </div>
 
-            <ul>
+            <ul class="navbar-nav">
                 <li>
-                    <a href="{{ route('user-account.my-account') }}" class="nav-item nav-link">
+                    <a href="{{ route('user-account.my-account') }}"
+                       class="nav-item nav-link {{ request()->routeIs('user-account.my-account') ? 'active' : '' }}">
                         <i class="fa fa-user-circle me-2"></i> My Account
                     </a>
-                    <a href="{{ route('appointment.form') }}" class="nav-item nav-link">
-                        <i class="fa fa-calendar-plus me-2"></i> Book Appointment
+            
+                    <a href="{{ route('book.now') }}"
+                       class="nav-item nav-link {{ request()->routeIs('book.now') ? 'active' : '' }}">
+                        <i class="fa fa-calendar-plus me-2"></i> Book Now
                     </a>
-                    <a href="#" class="nav-item nav-link">
+            
+                    <a href="{{ route('user-account.editProfile') }}"
+                       class="nav-item nav-link {{ request()->routeIs('user-account.editProfile') ? 'active' : '' }}">
                         <i class="fa fa-edit me-2"></i> Edit Profile
                     </a>
+            
+                    <a href="{{ route('user-account.medicalHistory') }}"
+                       class="nav-item nav-link {{ request()->routeIs('user-account.medicalHistory') ? 'active' : '' }}">
+                        <i class="fa fa-file-medical me-2"></i> Medical Records
+                    </a>
+            
                     <a href="{{ route('home') }}" class="nav-item nav-link">
                         <i class="fa fa-sign-out-alt me-2"></i> Back
                     </a>
                 </li>
             </ul>
+            
         </nav>
     </div>
 

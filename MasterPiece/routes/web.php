@@ -23,7 +23,7 @@ use App\Http\Controllers\Superadmen\SuperadmenController;
 use App\Http\Controllers\Superadmen\DoctorManagementController;
 use App\Http\Controllers\Superadmen\ClinicManagementController;
 use App\Http\Controllers\Superadmen\DepartmentsController;
-
+use App\Http\Controllers\MedicalHistoryController;
 
 
 /*
@@ -99,12 +99,36 @@ Route::post('/my-account/update-profile', [PatientController::class, 'updateProf
 
 // Route::delete('/appointments/{id}', [PatientController::class, 'destroy'])->name('patient.appointments.destroy');
 
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/medical-history', [MedicalHistoryController::class, 'create'])->name('medical-history.create');
+    Route::post('/medical-history', [MedicalHistoryController::class, 'store'])->name('medical-history.store');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user-account/medical-history', [MedicalHistoryController::class, 'create'])
+        ->name('user-account.medicalHistory');
+});
+
 Route::resource('appointments', AppointmentController::class);  
 
 
 Route::get('/user-account/search', [PatientController::class, 'search'])->name('user-account.search');
 
 Route::delete('/profile-picture/delete', [PatientController::class, 'deleteProfilePicture'])->name('profile-picture.delete');
+
+Route::get('user/appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('myappointments.edit');
+Route::put('user/appointments/{id}', [AppointmentController::class, 'update'])->name('myappointments.update');
+Route::get('/book-now', function () {
+    return view('user-account.book-now');
+})->name('book.now');
+
+
+
+
 
 ///////////////////////////////////////////////////////////
 
@@ -231,9 +255,19 @@ Route::middleware(['auth', 'role:doctor'])->group(function () {
         Route::get('/doctor/edit/profile', [DashboardController::class, 'edit'])->name('doctor.edit.info');
         Route::post('/doctor/update', [DashboardController::class, 'update'])->name('doctor.update');
         Route::get('/doctor/{id}', [ClinicController::class, 'doctorSingle'])->name('doctor.show');
-    });
 
-    
+        Route::get('/medical-records/create/{appointmentId}', [DashboardController::class, 'create'])->name('doctor.medical-records.create');
+        Route::post('/medical-records/store', [DashboardController::class, 'store'])->name('doctor.medical-records.store');
+
+
+    Route::get('/doctor/medical-history/{user}', [DashboardController::class, 'show'])->name('doctor.medical_history.show');
+
+});
+
+
+
+
+
     // Route::get('/doc', [DashboardController::class, 'index'])->name('doctor.dashboard');
     // Route::get('/doctor/edit/profile', [DashboardController::class, 'edit'])->name('doctor.edit.info');
     // Route::post('/doctor/update', [DashboardController::class, 'update'])->name('doctor.update');

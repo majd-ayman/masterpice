@@ -15,7 +15,6 @@ class Patient extends Model
         'phone', 'address', 'medical_notes', 'emergency_contact', 'insurance_details'
     ];
 
-    // العلاقة مع الأطباء الذين حجز عندهم المريض
     public function doctors()
     {
         return $this->belongsToMany(Doctor::class, 'appointments', 'patient_id', 'doctor_id')
@@ -23,7 +22,6 @@ class Patient extends Model
                     ->withTimestamps();
     }
 
-    // العلاقة مع المستخدم (User)
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
