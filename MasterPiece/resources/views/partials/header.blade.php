@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,13 +6,13 @@
   <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
   <meta name="author" content="themefisher.com">
 
-  <title>Masterpice</title>
+  <title>Calmora</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
   <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
   <!-- Icon Font Css -->
   <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
   <!-- Slick Slider  CSS -->
@@ -21,7 +22,6 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
- 
   <style>
     .btn-custom {
         background-color: #e12454;
@@ -30,6 +30,10 @@
         padding: 10px 30px;
         transition: background-color 0.3s ease;
         margin: 5px;
+    }
+
+    .btn-custom:hover {
+        color: white !important;
     }
 
     .dropdown-menu {
@@ -58,12 +62,17 @@
     .navbar-nav .nav-item:last-child {
         margin-right: 0;
     }
-</style>
+
+    .nav-item.active .nav-link {
+        color: #e12454;
+        font-weight: bold;
+        border-bottom: 2px solid #e12454;
+    }
+  </style>
 
 </head>
 
 <body id="top">
-
 
 <header>
     <nav class="navbar navbar-expand-lg navigation" id="navbar">
@@ -126,15 +135,6 @@
         </div>
     </nav>
 </header>
-
-<style>
-.nav-item.active .nav-link {
-    color: #e12454;
-    font-weight: bold;
-    border-bottom: 2px solid #e12454;
-}
-</style>
-
 
 <script src="plugins/jquery/jquery.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.min.js"></script>

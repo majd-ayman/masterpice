@@ -11,10 +11,8 @@ class DoctorsTableSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // مسح البيانات الحالية من جدول الأطباء
         DB::table('doctors')->truncate();
 
-        // إضافة بيانات الأطباء إلى الجدول
         DB::table('doctors')->insert([
             [
                 'name' => 'Dr. Ahmad Al Issa',

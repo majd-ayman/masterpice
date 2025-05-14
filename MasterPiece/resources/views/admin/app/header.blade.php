@@ -35,7 +35,7 @@
 
 
 <body>
-    
+
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner"
@@ -55,53 +55,64 @@
                 </div>
 
                 @php
-                $user = Auth::user();
-            @endphp
-            
-            <div class="d-flex align-items-center ms-4 mb-4">
-                <div class="position-relative">
-                    <img class="rounded-circle"
-                        src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
-                        alt="User"
-                        style="width: 40px; height: 40px;">
-                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                    $user = Auth::user();
+                @endphp
+
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle"
+                            src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                            alt="User" style="width: 40px; height: 40px;">
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">{{ $user ? $user->name : 'Guest' }}</h6>
+                        <span>Admin</span>
                     </div>
                 </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">{{ $user ? $user->name : 'Guest' }}</h6>
-                    <span>Admin</span>
-                </div>
-            </div>
 
 
 
- 
+     <style>
+                    .nav-item {
+                        color: black;
+                    }
 
-        <ul>
+                    .nav-item i {
+                        color: red;
+                    }
+                </style>
 
-            <li>
-                <a href="{{ route('admin.dashboard') }}" class="nav-item nav-link">
-                    <i class="fa fa-chart-bar me-2"></i>Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.chart') }}" class="nav-item nav-link">
-                    <i class="fa fa-chart-bar me-2"></i>Charts
-                </a>
-            </li>
 
-            <li>
-                <a href="{{ route('admin.doctors') }}" class="nav-item nav-link">
-                    <i class="fa fa-chart-bar me-2"></i>doctors
-                </a>
-            </li>
-        </ul>
-        
-    
-        
-            
-            
-            
+
+
+
+      <ul class="navbar-nav">
+    <li class="nav-item">
+        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+        </a>
+    </li>
+    {{-- <li class="nav-item">
+        <a href="{{ route('admin.chart') }}" class="nav-link {{ request()->routeIs('admin.chart') ? 'active' : '' }}">
+            <i class="fa fa-chart-bar me-2"></i>Charts
+        </a>
+    </li> --}}
+    <li class="nav-item">
+        <a href="{{ route('admin.doctors') }}" class="nav-link {{ request()->routeIs('admin.doctors') ? 'active' : '' }}">
+            <i class="fa fa-user-md me-2"></i>Doctors
+        </a>
+    </li>
+</ul>
+
+
+
+
+
+
+
             </nav>
 
 
@@ -165,31 +176,29 @@
                     </div>
 
                     @php
-                    use Illuminate\Support\Facades\Auth;
-                    $user = Auth::user();
-                @endphp
-                
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle"
-                            src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
-                            alt="User"
-                            style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">{{ $user ? $user->name : 'Guest' }}</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">My Profile</a>
-                        <a href="{{ route('logout') }}" class="dropdown-item"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                           Log Out
+                        use Illuminate\Support\Facades\Auth;
+                        $user = Auth::user();
+                    @endphp
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle"
+                                src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                                alt="User" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">{{ $user ? $user->name : 'Guest' }}</span>
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Log Out
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
-                </div>
-                
+
                 </div>
             </nav>
             <!-- Navbar End -->
-

@@ -12,8 +12,8 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade');
-            $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade'); // ربط التقييم بالموعد
-            $table->unsignedTinyInteger('rating'); // تم تحديد أن التقييم سيكون بين 1 و 5
+            $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade'); 
+            $table->unsignedTinyInteger('rating'); 
             $table->text('comment')->nullable();
             $table->timestamps();
         });

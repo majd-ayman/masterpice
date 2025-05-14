@@ -11,7 +11,6 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="bg-light border border-primary-subtle rounded-4 shadow-sm p-4 h-100 d-flex flex-column justify-content-between" style="min-height: 400px;">
 
-                    {{-- صورة الطبيب --}}
                     <div class="text-center mb-3">
                         <img 
                             src="{{ asset('images/team/' . ($doctor->image ?? 'default.jpg')) }}" 
@@ -21,14 +20,12 @@
                         >
                     </div>
 
-                    {{-- بيانات الطبيب --}}
                     <div class="text-center mb-3">
                         <h5 class="text-primary mb-2">{{ $doctor->name }}</h5>
                         <p class="mb-1"><strong>Clinic:</strong> {{ $doctor->clinic->name ?? 'N/A' }}</p>
                         <p class="mb-1"><strong>Working Hours:</strong> {{ $doctor->working_hours }}</p>
                     </div>
 
-                    {{-- عدد المواعيد المتاحة --}}
                     @php
                         $availableAppointments = $appointments->where('doctor_id', $doctor->id)->count();
                     @endphp

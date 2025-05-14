@@ -75,9 +75,10 @@
                                 @if ($appointment->status === 'completed' && $appointment->user->medicalHistory)
                                     <a href="{{ route('doctor.medical_history.show', $appointment->user->id) }}"
                                         class="btn btn-sm btn-info">
-                                        View log                                    </a>
+                                        View log </a>
                                 @else
-                                <span class="text-muted">No record</span>                                @endif
+                                    <span class="text-muted">No record</span>
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ route('doctor.medical-records.create', $appointment->id) }}"
@@ -100,9 +101,11 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>Patient</th>
+                    <th>Patient Name</th>
+                    <th>Date</th>
                     <th>Time</th>
                     <th>Status</th>
+
 
                 </tr>
             </thead>
@@ -110,6 +113,7 @@
                 @foreach ($upcomingAppointments as $appointment)
                     <tr>
                         <td>{{ $appointment->user->name ?? 'N/A' }}</td>
+                        <td>{{ $appointment->appointment_date }}</td>
                         <td>{{ $appointment->appointment_time }}</td>
                         <td>{{ $appointment->status }}</td>
                         </td>

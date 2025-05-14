@@ -77,31 +77,29 @@
                 </div>
 
 
-                <div class="col-lg-4">
-                    <div class="sidebar-widget schedule-widget mt-5">
-                        <h5 class="mb-4">Time Schedule</h5>
+               <div class="col-lg-4">
+    <div class="sidebar-widget schedule-widget mt-5">
+        <h5 class="mb-4">Time Schedule</h5>
 
-                        <ul class="list-unstyled">
-                            <li class="d-flex justify-content-between align-items-center">
-                                <a href="#">Monday - Friday</a>
-                                <span>9:00 - 17:00</span>
-                            </li>
-                            <li class="d-flex justify-content-between align-items-center">
-                                <a href="#">Saturday</a>
-                                <span>9:00 - 16:00</span>
-                            </li>
-                            <li class="d-flex justify-content-between align-items-center">
-                                <a href="#">Sunday</a>
-                                <span>Closed</span>
-                            </li>
-                        </ul>
+        <ul class="list-unstyled">
+            <li class="d-flex justify-content-between align-items-center">
+                <a >Sunday - Thursday</a>
+                <span>8:00 AM - 13:00 PM</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                <a >Friday - Saturday </a>
+                <span>Closed</span>
+            </li>
+          
+        </ul>
 
-                        <div class="sidebar-contatct-info mt-4">
-                            <p class="mb-0">Need Urgent Help?</p>
-                            <h3>0770467339</h3>
-                        </div>
-                    </div>
-                </div>
+        <div class="sidebar-contatct-info mt-4">
+            <p class="mb-0">Need Urgent Help?</p>
+            <h3>0770467339</h3>
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
     </section>

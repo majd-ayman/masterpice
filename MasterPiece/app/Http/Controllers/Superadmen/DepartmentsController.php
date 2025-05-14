@@ -8,30 +8,34 @@ use Illuminate\Http\Request;
 
 class DepartmentsController extends Controller
 {
-    // عرض الأقسام
     public function index()
     {
         $departments = Department::all();
         return view('superAdmin.departments.index', compact('departments'));
     }
-    // عرض صفحة إضافة قسم جديد
+
     public function create()
     {
         return view('superAdmin.departments.create');
     }
 
-    // تخزين قسم جديد
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'long_description' => 'nullable|string',
+            'services' => 'nullable|string',
+            'services_features' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
         ]);
 
         $department = new Department();
         $department->name = $request->name;
         $department->description = $request->description;
+        $department->long_description = $request->long_description;
+        $department->services = $request->services;
+        $department->services_features = $request->services_features;
 
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->image->extension();
@@ -41,28 +45,31 @@ class DepartmentsController extends Controller
 
         $department->save();
 
-        return redirect()->route('superAdmin.departments.index')->with('success', 'Department added successfully');
-    }
+return redirect()->route('superAdmin.departments.index')->with('success', 'Department added successfully');    }
 
-    // عرض صفحة تعديل القسم
     public function edit($id)
     {
         $department = Department::findOrFail($id);
         return view('superAdmin.departments.edit', compact('department'));
     }
 
-    // تحديث قسم
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'long_description' => 'nullable|string',
+            'services' => 'nullable|string',
+            'services_features' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
         ]);
 
         $department = Department::findOrFail($id);
         $department->name = $request->name;
         $department->description = $request->description;
+        $department->long_description = $request->long_description;
+        $department->services = $request->services;
+        $department->services_features = $request->services_features;
 
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->image->extension();
@@ -72,15 +79,12 @@ class DepartmentsController extends Controller
 
         $department->save();
 
-        return redirect()->route('superAdmin.departments.index')->with('success', 'Department updated successfully');
-    }
+return redirect()->route('superAdmin.departments.index')->with('success', 'Department data was modified successfully');    }
 
-    // حذف قسم
     public function destroy($id)
     {
         $department = Department::findOrFail($id);
         $department->delete();
 
-        return redirect()->route('superAdmin.departments.index')->with('success', 'Department deleted successfully');
-    }
+return redirect()->route('superAdmin.departments.index')->with('success', 'The partition was deleted successfully');    }
 }

@@ -3,36 +3,30 @@
 namespace App\Notifications;
 
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\DatabaseMessage;
+use App\Models\Appointment;
 
 class NewAppointmentNotification extends Notification
 {
     protected $appointment;
 
-    public function __construct($appointment)
+    public function __construct(Appointment $appointment)
     {
         $this->appointment = $appointment;
     }
 
     public function via($notifiable)
     {
-        return ['mail', 'database']; // الإشعارات عبر البريد الإلكتروني و قاعدة البيانات
-    }
-
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('تم تحديد موعد جديد.')
-                    ->action('رؤية التفاصيل', url('/appointments/'.$this->appointment->id))
-                    ->line('شكراً لاستخدامك خدماتنا!');
+        return ['database']; 
     }
 
     public function toDatabase($notifiable)
     {
         return [
+            'title' => 'New Appointment Booked',
             'appointment_id' => $this->appointment->id,
-            'message' => 'تم تحديد موعد جديد مع الطبيب: ' . $this->appointment->doctor->name,
+            'doctor_name' => $this->appointment->doctor->name,
+            'appointment_time' => $this->appointment->appointment_time,
         ];
     }
 }

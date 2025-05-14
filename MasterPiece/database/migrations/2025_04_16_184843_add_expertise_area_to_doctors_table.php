@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            $table->string('expertise_area')->nullable(); // إضافة الحقل expertise_area
+            $table->string('expertise_area')->nullable(); 
         });
     }
     
     public function down()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            $table->dropColumn('expertise_area'); // حذف الحقل في حال التراجع
+            $table->dropColumn('expertise_area'); 
         });
     }
     

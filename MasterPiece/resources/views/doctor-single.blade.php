@@ -17,7 +17,6 @@
     <!-- Slick Slider  CSS -->
     <link rel="stylesheet" href="{{ asset('plugins/slick-carousel/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/slick-carousel/slick/slick-theme.css') }}">
-    <!-- داخل ملف layout أو في صفحة doctor.blade.php -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
@@ -90,14 +89,7 @@
                         <div class="info-block mt-4">
                             <h4 class="mb-0">{{ $doctor->name }}</h4>
                             <p>{{ $doctor->specialty }}</p>
-                            <ul class="list-inline mt-4 doctor-social-links">
-                                <li class="list-inline-item"><a href="#"><i class="icofont-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="icofont-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="icofont-skype"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="icofont-linkedin"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="icofont-pinterest"></i></a>
-                                </li>
-                            </ul>
+                         
                         </div>
                     </div>
                 </div>
@@ -130,27 +122,19 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="edu-block mb-5">
-                        <span class="h6 text-muted">Year ({{ $doctor->educational_qualifications }})</span>
+                        <span class="h6 text-muted">{{ $doctor->educational_qualifications }}</span>
                         <h4 class="mb-3 title-color">{{ $doctor->educational_qualifications1 }}</h4>
                         <p>{{ $doctor->educational_qualifications_description1 }}</p>
                     </div>
 
-                    <div class="edu-block">
-                        <span class="h6 text-muted">Year ({{ $doctor->educational_qualifications }})</span>
-                        <h4 class="mb-3 title-color">{{ $doctor->educational_qualifications2 }}</h4>
-                        <p>{{ $doctor->educational_qualifications_description2 }}</p>
-                    </div>
+                    
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="edu-block mb-5">
-                        <span class="h6 text-muted">Year ({{ $doctor->educational_qualifications }})</span>
-                        <h4 class="mb-3 title-color">{{ $doctor->educational_qualifications3 }}</h4>
-                        <p>{{ $doctor->educational_qualifications_description3 }}</p>
-                    </div>
+                 
 
                     <div class="edu-block">
-                        <span class="h6 text-muted">Year ({{ $doctor->educational_qualifications }})</span>
+                        <span class="h6 text-muted"> {{ $doctor->educational_qualifications }}</span>
                         <h4 class="mb-3 title-color">{{ $doctor->educational_qualifications4 }}</h4>
                         <p>{{ $doctor->educational_qualifications_description4 }}</p>
                     </div>
@@ -161,7 +145,6 @@
 
 
 
-    {{-- هون لون السيكشن ابيض  --}}
     <section class="section doctor-skills">
         <div class="container">
             <div class="row">
@@ -170,15 +153,17 @@
                     <div class="divider my-4"></div>
                     <p>{{ $doctor->skills }}</p>
                 </div>
+<div class="col-lg-4">
+    <div class="skill-list">
+        <h5 class="mb-4">Expertise area</h5>
+        <ul class="list-unstyled department-service">
+            @foreach(explode(',', $doctor->expertise_area) as $expertise)
+                <li><i class="icofont-check mr-2"></i>{{ trim($expertise) }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
 
-                <div class="col-lg-4">
-                    <div class="skill-list">
-                        <h5 class="mb-4">Expertise area</h5>
-                        <ul class="list-unstyled department-service">
-                            <li><i class="icofont-check mr-2"></i>{{ $doctor->specialty }}</li>
-                        </ul>
-                    </div>
-                </div>
 
                 <div class="col-lg-4">
                     <div class="sidebar-widget gray-bg p-4">
@@ -285,7 +270,7 @@
 
     <script>
         document.getElementById('comment-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // منع الإرسال مؤقتًا
+            e.preventDefault(); 
 
             let name = document.getElementById('name').value.trim();
             let email = document.getElementById('mail').value.trim();
@@ -295,38 +280,33 @@
             let isValid = true;
             let errors = [];
 
-            // التحقق من الاسم
             if (name === '') {
                 isValid = false;
                 errors.push("Please enter your name.");
             }
 
-            // التحقق من الإيميل
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (email === '' || !emailRegex.test(email)) {
                 isValid = false;
                 errors.push("Please enter a valid email.");
             }
 
-            // التحقق من التعليق
             if (comment === '') {
                 isValid = false;
                 errors.push("Please enter your comment.");
             }
 
-            // التحقق من التقييم
             if (!rating) {
                 isValid = false;
                 errors.push("Please select a rating.");
             }
 
             if (!isValid) {
-                alert(errors.join("\n")); // عرض كل الأخطاء
+                alert(errors.join("\n"));
                 return;
             }
 
-            // لو كلشي تمام، ممكن تبعت الفورم فعليًا
-            this.submit(); // أو استخدم AJAX إذا بتحب
+            this.submit(); 
         });
     </script>
 

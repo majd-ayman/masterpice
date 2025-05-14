@@ -26,11 +26,11 @@
 <style>
     .star {
     font-size: 20px;
-    color: #ccc; /* لون النجمة الفارغة */
+    color: #ccc; 
 }
 
 .star.filled {
-    color: #FFD700; /* لون الذهب للنجمة الممتلئة */
+    color: #FFD700;
 }
 
     </style>
@@ -70,8 +70,6 @@
                     </div>
                 </div>
             </div> 
-            <!-- الفلاتر -->
-  <!-- الفلاتر -->
 <div class="col-12 text-center mb-5">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn active">
@@ -87,7 +85,6 @@
 </div> 
 
 
-            <!-- قائمة الأطباء -->
          <div class="row" id="doctor-list">
                 @foreach ($doctors as $doctor)
                     <div class="col-lg-4 doctor-card" data-clinic="{{ $doctor->clinic_id }}">
@@ -97,16 +94,15 @@
                                 <h5 class="card-title">
                                     {{ $doctor->name }}
                                 </h5>
-                                <p>Specialty: {{ $doctor->specialty }}</p> <!-- عرض التخصص هنا -->
-                                <p>Clinic: {{ $doctor->clinic->name }}</p> <!-- عرض اسم العيادة -->
+                                <p>Specialty: {{ $doctor->specialty }}</p> 
+                                <p>Clinic: {{ $doctor->clinic->name }}</p> 
                 
-                                <!-- عرض عدد النجوم -->
                                 <div class="rating">
                                     @for ($i = 0; $i < 5; $i++)
                                         @if ($i < $doctor->average_rating)
-                                            <span class="star filled">&#9733;</span> <!-- النجمة المملوءة -->
+                                            <span class="star filled">&#9733;</span> 
                                         @else
-                                            <span class="star">&#9734;</span> <!-- النجمة الفارغة -->
+                                            <span class="star">&#9734;</span> 
                                         @endif
                                     @endfor
                                     <div>

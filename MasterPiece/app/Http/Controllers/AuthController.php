@@ -21,21 +21,18 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        // محاولة تسجيل الدخول
         if (Auth::attempt($credentials)) {
-            $user = Auth::user(); // الحصول على المستخدم الحالي
+            $user = Auth::user(); 
 
-            // توجيه المستخدم بناءً على دوره
             if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');   // إذا كان المستخدم "سكرتير"
+                return redirect()->route('admin.dashboard');   
     
             } elseif ($user->role === 'doctor') {
                 return redirect()->route('doctor.dashboard');
-                 // إذا كان المستخدم "طبيب"
             } elseif ($user->role === 'superadmen') {
-                return redirect()->route('superAdmin.dashboard'); // إذا كان المستخدم "مدير عام"
+                return redirect()->route('superAdmin.dashboard'); 
             } else {
-                return redirect()->route('user-account.my-account'); // إذا كان المستخدم "مريض"
+                return redirect()->route('user-account.my-account'); 
             }
         }
 
@@ -44,27 +41,24 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid credentials.');
     }
 
-    // عرض صفحة التسجيل
     public function showRegisterForm()
     {
         return view('auth.register');
     }
 
-    // معالجة طلب التسجيل
     public function register(Request $request)
     {
-        // التحقق من البيانات المدخلة
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'phone' => 'required|regex:/^[0-9]{10}$/',
+        
             'gender' => 'required|in:male,female',
             'address' => 'required|string|max:255', 
             'age' => 'required|integer|min:1|max:120',
         ]);
 
-        // إنشاء مستخدم جديد
         User::create([
             'name' => $request->name,
             'email' => $request->email,

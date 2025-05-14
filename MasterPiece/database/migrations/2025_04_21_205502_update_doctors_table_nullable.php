@@ -9,7 +9,6 @@ class UpdateDoctorsTableNullable extends Migration
     public function up()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            // جعل الحقول المطلوبة nullable
             $table->string('specialty', 100)->nullable()->change();
             $table->time('available_from')->nullable()->change();
             $table->time('available_to')->nullable()->change();
@@ -25,7 +24,6 @@ class UpdateDoctorsTableNullable extends Migration
     public function down()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            // في حالة الرجوع للتعديل السابق، يمكن جعل الحقول غير nullable
             $table->string('specialty', 100)->nullable(false)->change();
             $table->time('available_from')->nullable(false)->change();
             $table->time('available_to')->nullable(false)->change();

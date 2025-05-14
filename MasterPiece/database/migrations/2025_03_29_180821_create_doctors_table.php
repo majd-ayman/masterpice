@@ -24,8 +24,8 @@ class CreateDoctorsTable extends Migration
             $table->text('skills')->nullable();
             $table->text('educational_qualifications')->nullable();
             $table->string('image')->nullable();
-            $table->integer('experience')->nullable(); // عدد سنوات الخبرة
-            $table->json('working_days')->nullable(); // الأيام التي يعمل فيها الطبيب
+            $table->integer('experience')->nullable(); 
+            $table->json('working_days')->nullable(); 
         });
     }
 

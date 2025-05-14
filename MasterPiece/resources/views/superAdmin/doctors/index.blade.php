@@ -1,12 +1,12 @@
-<!-- resources/views/superAdmin/doctors/index.blade.php -->
 
 @include('superAdmin.ap.header')
 
-    <div class="container">
-        <h1>Doctors</h1>
+<div class="container mt-3">
+<h1 style="font-weight: 500;">All Doctors</h1>
+ 
         <a href="{{ route('superAdmin.doctors.create') }}" class="btn btn-primary">Add New Doctor</a>
 
-        <table class="table mt-4">
+        <table class="table table-bordered mt-4">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -26,11 +26,13 @@
                         <td>{{ $doctor->available_from }}</td>
                         <td>{{ $doctor->available_to }}</td>
                         <td>
-                            <a href="{{ route('superAdmin.doctors.edit', $doctor->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('superAdmin.doctors.edit', $doctor->id) }}" class="btn btn-warning">                                <i class="fa fa-edit"></i>
+</a>
                             <form action="{{ route('superAdmin.doctors.destroy', $doctor->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">                                    <i class="fa fa-trash"></i>
+</button>
                             </form>
                         </td>
                     </tr>

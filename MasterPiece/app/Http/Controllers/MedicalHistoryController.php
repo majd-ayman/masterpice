@@ -24,8 +24,6 @@ public function store(Request $request)
         'lifestyle' => 'nullable|string',
         'mental_health_notes' => 'nullable|string',
         'additional_notes' => 'nullable|string',
-        'doctor_id' => 'nullable|exists:doctors,id',
-        'appointment_id' => 'nullable|exists:appointments,id',
     ]);
 
     MedicalHistory::create([
@@ -39,8 +37,6 @@ public function store(Request $request)
         'lifestyle' => $request->lifestyle,
         'mental_health_notes' => $request->mental_health_notes,
         'additional_notes' => $request->additional_notes,
-        'doctor_id' => $request->doctor_id,              // مضاف حديثاً
-        'appointment_id' => $request->appointment_id,    // مضاف حديثاً
     ]);
 
     return redirect()->back()->with('success', 'The medical record was saved successfully');

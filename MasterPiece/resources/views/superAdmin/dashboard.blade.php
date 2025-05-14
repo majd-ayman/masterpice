@@ -1,13 +1,11 @@
 @include('superAdmin.ap.header')
 
 <div class="container text-center my-4">
-    <!-- عنوان الترحيب -->
-    <h1>Welcome to the Super Admin Dashboard</h1>
+    {{-- <h1 style="font-weight: 500;">Welcome to the Super Admin Dashboard</h1> --}}
 </div>
 
 <!-- Dashboard Content -->
 <div class="container-fluid pt-4 px-4">
-    <!-- ترتيب الكاردات الصغيرة بجانب بعضها -->
     <div class="row g-4 justify-content-center">
         <!-- Today's Appointments -->
         <div class="col-sm-6 col-xl-3">
@@ -55,8 +53,21 @@
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Appointments Table (If needed) -->
-<div class="container-fluid pt-4 px-4">
+{{-- <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">All Reservations</h6>
@@ -103,6 +114,6 @@
             </table>
         </div>
     </div>
-</div>
+</div> --}}
 
 @include('superAdmin.ap.footer')

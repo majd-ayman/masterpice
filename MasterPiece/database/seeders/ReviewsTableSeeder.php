@@ -12,7 +12,6 @@ class ReviewsTableSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // مسح البيانات الحالية من جدول المراجعات
         DB::table('reviews')->truncate();
 
         $reviews = [
@@ -43,7 +42,6 @@ class ReviewsTableSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            // 10 تعليقات إضافية
             [
                 'user_id' => 10,
                 'doctor_id' => 2,
@@ -138,7 +136,6 @@ class ReviewsTableSeeder extends Seeder
 
         DB::table('reviews')->insert($reviews);
 
-        // إعادة تمكين التحقق من القيود
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

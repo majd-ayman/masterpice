@@ -6,19 +6,16 @@
         @csrf
         @method('PUT')
 
-        {{-- اسم المريض (غير قابل للتعديل) --}}
         <div class="mb-3">
             <label>Patient Name</label>
             <input type="text" class="form-control" value="{{ $appointment->user->name }}" disabled>
         </div>
 
-        {{-- رقم التلفون (غير قابل للتعديل) --}}
         <div class="mb-3">
             <label>Phone Number</label>
             <input type="text" class="form-control" value="{{ $appointment->user->phone }}" disabled>
         </div>
 
-        {{-- العيادة --}}
         <div class="mb-3">
             <label>Clinic</label>
             <select name="clinic_id" class="form-control">
@@ -30,7 +27,6 @@
             </select>
         </div>
 
-        {{-- الطبيب --}}
         <div class="mb-3">
             <label>Doctor</label>
             <select name="doctor_id" class="form-control">
@@ -42,19 +38,16 @@
             </select>
         </div>
 
-        {{-- التاريخ --}}
         <div class="mb-3">
             <label>Date</label>
             <input type="date" name="appointment_date" class="form-control" value="{{ $appointment->appointment_date }}">
         </div>
 
-        {{-- الوقت --}}
         <div class="mb-3">
             <label>Time</label>
             <input type="time" name="appointment_time" class="form-control" value="{{ $appointment->appointment_time }}">
         </div>
 
-        {{-- الحالة --}}
         <div class="mb-3">
             <label>Status</label>
             <select name="status" class="form-control">
@@ -64,7 +57,6 @@
             </select>
         </div>
 
-        {{-- الملاحظات --}}
         <div class="mb-3">
             <label>Notes</label>
             <textarea name="notes" class="form-control">{{ $appointment->notes }}</textarea>

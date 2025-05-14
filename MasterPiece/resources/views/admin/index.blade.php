@@ -49,18 +49,17 @@
             <tbody>
                 @forelse($appointments as $appointment)
                     <tr>
-                        <td>{{ $appointment->user->name ?? '-' }}</td> <!-- اسم المريض -->
-                        <td>{{ $appointment->doctor->name ?? '-' }}</td> <!-- اسم الطبيب -->
-                        <td>{{ $appointment->clinic->name ?? '-' }}</td> <!-- اسم العيادة -->
-                        <td>{{ $appointment->appointment_date }}</td> <!-- تاريخ الموعد -->
-                        <td>{{ $appointment->appointment_time }}</td> <!-- وقت الموعد -->
-                        <td>{{ $appointment->status ?? '-' }}</td> <!-- حالة الموعد -->
-                        <td>{{ $appointment->notes ?? '-' }}</td> <!-- ملاحظات الموعد -->
+                        <td>{{ $appointment->user->name ?? '-' }}</td> 
+                        <td>{{ $appointment->doctor->name ?? '-' }}</td> 
+                        <td>{{ $appointment->clinic->name ?? '-' }}</td> 
+                        <td>{{ $appointment->appointment_date }}</td>
+                        <td>{{ $appointment->appointment_time }}</td> 
+                        <td>{{ $appointment->status ?? '-' }}</td> 
+                        <td>{{ $appointment->notes ?? '-' }}</td> 
                     </tr>
                 @empty
                     <tr>
                         <td colspan="7" class="text-center">No appointments</td>
-                        <!-- تغيير عدد الأعمدة هنا 7 لأنك أضفت عمود "ملاحظات" -->
                     </tr>
                 @endforelse
             </tbody>
@@ -83,7 +82,6 @@
 
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <!-- عدد المواعيد اليوم -->
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-calendar-check fa-3x text-primary"></i>
@@ -94,7 +92,6 @@
             </div>
         </div>
 
-        <!-- عدد المرضى المنتظرين -->
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-user-clock fa-3x text-warning"></i>
@@ -105,7 +102,6 @@
             </div>
         </div>
 
-        <!-- المرضى الجدد اليوم -->
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-user-plus fa-3x text-success"></i>
@@ -116,7 +112,6 @@
             </div>
         </div>
 
-        <!-- الأطباء المتاحين -->
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-user-md fa-3x text-info"></i>
@@ -130,7 +125,6 @@
 </div>
 
 
-{{-- ----------------------------------------------------------------------- هوووووووووووووووووون شغليييييييييي------------- ------------------------------------ --}}
 <!-- Start of appointments -->
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
@@ -169,7 +163,7 @@
                                 <form action="{{ route('appointments.updateStatus', $appointment->id) }}"
                                     method="POST">
                                     @csrf
-                                    @method('PUT') <!-- استخدم PUT لتحديث البيانات -->
+                                    @method('PUT') 
                                     <select name="status" class="form-control" onchange="this.form.submit()">
                                         <option value="pending"
                                             {{ $appointment->status == 'pending' ? 'selected' : '' }}>

@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('departments', function (Blueprint $table) {
-            $table->text('services')->nullable()->after('image'); // إضافة عمود الخدمات بعد الصورة
+            $table->text('services')->nullable()->after('image'); 
         });
     }
     
     public function down()
     {
         Schema::table('departments', function (Blueprint $table) {
-            $table->dropColumn('services'); // لإلغاء الحقل عند التراجع
+            $table->dropColumn('services'); 
         });
     }
     

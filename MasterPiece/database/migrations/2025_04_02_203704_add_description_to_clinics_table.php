@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->text('description')->nullable(); // إضافة عمود وصف طويل من نوع نصي
+            $table->text('description')->nullable(); 
         });
     }
     
     public function down()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->dropColumn('description'); // حذف العمود في حالة التراجع
+            $table->dropColumn('description'); 
         });
     }
     

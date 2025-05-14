@@ -9,7 +9,6 @@ class AddDoctorAndAppointmentToMedicalHistories extends Migration
     public function up()
     {
         Schema::table('medical_histories', function (Blueprint $table) {
-            // إذا ما كانت الأعمدة موجودة مسبقاً
             if (!Schema::hasColumn('medical_histories', 'doctor_id')) {
                 $table->foreignId('doctor_id')
                       ->nullable()

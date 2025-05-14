@@ -57,14 +57,14 @@
 
                 @php
                     $user = Auth::user();
-                    $doctor = $user->doctor ?? null; // Assuming the user has a doctor relationship
+                    $doctor = $user->doctor ?? null;
                 @endphp
 
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle"
-                            src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
-                            alt="User" style="width: 40px; height: 40px;">
+                        src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                        alt="Doctor" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -85,21 +85,18 @@
                 </style>
 
 
-                <ul class="navbar-nav">
-                    <li>
-                        <a href="{{ route('doctor.dashboard') }}" class="nav-item nav-link">
-                            <i class="fa fa-chart-bar me-2"></i> Dashboard
-                        </a>
-                        <a href="{{ route('doctor.edit.info') }}" class="nav-item nav-link">
-                            <i class="fa fa-edit me-2"></i> Edit Profile
-                        </a>
-                      
-                    </li>
+<ul class="navbar-nav">
+    <li>
+        <a href="{{ route('doctor.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('doctor.dashboard') ? 'active' : '' }}">
+            <i class="fa fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a href="{{ route('doctor.edit.info') }}" class="nav-item nav-link {{ request()->routeIs('doctor.edit.info') ? 'active' : '' }}">
+            <i class="fa fa-edit me-2"></i> Edit Profile
+        </a>
+    </li>
+</ul>
 
 
-
-                </ul>
-                
 
             </nav>
 
@@ -123,45 +120,7 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
 
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="{{ asset('images/user.jpg') }}" alt="User"
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="{{ asset('images/user.jpg') }}" alt="User"
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="{{ asset('images/user.jpg') }}" alt="User"
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
 
                     @php
                         use Illuminate\Support\Facades\Auth;
@@ -169,13 +128,55 @@
                         $doctor = $user->doctor ?? null;
                     @endphp
 
+                    {{-- //notifications --}}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notifications</span>
+                            @if (auth()->user()->unreadNotifications->count())
+                                <span class="badge bg-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"
+                            style="max-height: 300px; overflow-y: auto;">
+
+                            @forelse(auth()->user()->notifications->take(5) as $notification)
+                                <a href="{{ url('/doctor/appointments') }}" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">{{ $notification->data['title'] ?? 'New Notification' }}
+                                    </h6>
+                                    <small>{{ $notification->created_at->diffForHumans() }}</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                            @empty
+                                <a href="#" class="dropdown-item text-center">No Notifications</a>
+                            @endforelse
+                            <form action="{{ route('notifications.markAsRead') }}" method="POST" class="text-center">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-primary border-0 bg-transparent w-100">
+                                    Mark all as read
+                                </button>
+                            </form>
+                            
+                        </div>
+                    </div>
+
+
+
+                    <div class="nav-item dropdown">
+
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle"
-                                src="{{ $user && $user->profile_picture ? asset('images/users/' . $user->profile_picture) : asset('images/user.jpg') }}"
-                                alt="User" style="width: 40px; height: 40px;">
+
+
+
+                            src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/2.jpg') }}"
+
+
+
+                                alt="Doctor" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ $doctor ? $doctor->name : 'Guest' }}</span>
                         </a>
+
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="{{ route('logout') }}" class="dropdown-item"

@@ -16,7 +16,7 @@ class RemoveLocationFromClinicsTable extends Migration
     public function down()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->text('location')->nullable(); // نرجّعه في حالة rollback
+            $table->text('location')->nullable(); 
         });
     }
 }

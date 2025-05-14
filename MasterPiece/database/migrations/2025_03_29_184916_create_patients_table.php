@@ -12,17 +12,17 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // اسم المريض
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->unique(); // المريض مرتبط بمستخدم
-            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade'); // الطبيب المعالج
-            $table->date('date_of_birth')->nullable(); // تاريخ الميلاد
-            $table->enum('gender', ['male', 'female']); // الجنس
-            $table->string('phone')->nullable(); // رقم الهاتف
-            $table->text('address')->nullable(); // عنوان المريض
-            $table->text('medical_notes')->nullable(); // ملاحظات طبية
+            $table->string('name'); 
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->unique(); 
+            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade'); 
+            $table->date('date_of_birth')->nullable(); 
+            $table->enum('gender', ['male', 'female']); 
+            $table->string('phone')->nullable(); 
+            $table->text('address')->nullable(); 
+            $table->text('medical_notes')->nullable(); 
             $table->timestamps();
             $table->string('emergency_contact')->nullable();
-            $table->text('insurance_details')->nullable(); // تفاصيل التأمين
+            $table->text('insurance_details')->nullable(); 
 
         });
     }

@@ -9,13 +9,10 @@ class ClinicsTableSeeder extends Seeder
 {
     public function run()
     {
-        // تعطيل القيود المؤقتًا
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // مسح جميع البيانات في جدول العيادات
         DB::table('clinics')->truncate();
 
-        // إضافة بيانات العيادات إلى الجدول
         DB::table('clinics')->insert([
             [
                 'name' => 'Laboratory Services',
@@ -79,7 +76,6 @@ class ClinicsTableSeeder extends Seeder
             ]
         ]);
 
-        // إعادة تفعيل القيود
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

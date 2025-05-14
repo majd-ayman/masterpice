@@ -67,8 +67,8 @@ class StatisticsController extends Controller
         'counts' => $counts,
         'clinicNames' => $clinicNames,
         'clinicCounts' => $clinicCounts,
-        'days' => $days, // Days based on distribution
-        'dayCounts' => $dayCounts, // Number of appointments per day
+        'days' => $days,
+        'dayCounts' => $dayCounts, 
     ]);
 }
 

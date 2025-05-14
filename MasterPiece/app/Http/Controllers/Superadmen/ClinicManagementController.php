@@ -19,20 +19,64 @@ class ClinicManagementController extends Controller
         return view('superAdmin.clinics.create');
     }
 
+
+
+
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'contact_number' => 'nullable|string|max:20',
-            'facilities' => 'nullable|string',
-            'icon' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-zA-Z0-9\s]+$/',
+                'not_regex:/[\x{0600}-\x{06FF}]/u'
+            ],
+            'contact_number' => [
+                'required',
+                'string',
+                'regex:/^(078|079|077)[0-9]{7}$/'
+            ],
+            'facilities' => [
+                'required',
+                'string',
+                'regex:/^[a-zA-Z0-9\s]+$/',
+                'not_regex:/[\x{0600}-\x{06FF}]/u'
+            ],
+            'icon' => 'required|string|max:255',
+            'description' => [
+                'required',
+                'string',
+                'regex:/^[a-zA-Z0-9\s]+$/',
+                'not_regex:/[\x{0600}-\x{06FF}]/u'
+            ],
         ]);
 
         Clinic::create($request->all());
 
         return redirect()->route('superAdmin.clinics.index')->with('success', 'Clinic added successfully!');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function edit($id)
     {
@@ -46,7 +90,7 @@ class ClinicManagementController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'contact_number' => 'nullable|string|max:20',
+            'contact_number' => [ 'required', 'string','regex:/^(078|079|077)[0-9]{7}$/'],
             'facilities' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -56,6 +100,9 @@ class ClinicManagementController extends Controller
 
         return redirect()->route('superAdmin.clinics.index')->with('success', 'Clinic updated successfully!');
     }
+
+
+    
 
     public function destroy($id)
     {

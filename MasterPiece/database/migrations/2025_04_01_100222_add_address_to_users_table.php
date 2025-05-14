@@ -14,7 +14,7 @@ class AddAddressToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('address')->nullable(); // إضافة العمود address
+            $table->string('address')->nullable(); 
         });
     }
 
@@ -26,7 +26,7 @@ class AddAddressToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('address'); // حذف العمود إذا تم التراجع عن الهجرة
+            $table->dropColumn('address'); 
         });
     }
 }

@@ -13,11 +13,9 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        // Start by getting today's date and day of the week
         $today = Carbon::today();
         $todayName = $today->format('l');
 
-        // Gather stats for today
         $newPatientsToday = User::where('role', 'patient')
             ->whereDate('created_at', $today)
             ->count();
@@ -30,10 +28,8 @@ class AdminController extends Controller
 
         $availableDoctors = Doctor::where('working_days', 'LIKE', '%' . $todayName . '%')->count();
 
-        // Start building the appointments query with filters
         $query = Appointment::with(['user', 'doctor', 'clinic']);
 
-        // Apply filters based on the user's input
         if ($request->filled('date')) {
             $query->whereDate('appointment_date', $request->date);
         }
@@ -50,14 +46,11 @@ class AdminController extends Controller
             $query->where('status', $request->status);
         }
 
-        // Get paginated results for appointments
         $appointments = $query->orderBy('appointment_date', 'desc')->paginate(10);
 
-        // Get all clinics and doctors for filtering dropdowns
         $clinics = Clinic::all();
         $doctors = Doctor::all();
 
-        // Return the dashboard view with all the necessary data
         return view('admin.index', compact(
             'appointmentsToday',
             'waitingPatients',
@@ -81,49 +74,39 @@ class AdminController extends Controller
 
     public function destroy($id)
     {
-        // البحث عن الموعد بناءً على الـ id
         $appointment = Appointment::findOrFail($id);
 
-        // حذف الموعد
         $appointment->delete();
 
-        // إعادة التوجيه بعد الحذف مع رسالة نجاح
         return redirect()->route('admin.dashboard')->with('success', 'Appointment deleted successfully');
     }
-    // تحديث حالة الموعد
     public function updateStatus(Request $request, $id)
     {
-        // العثور على الموعد باستخدام المعرف
         $appointment = Appointment::findOrFail($id);
 
-        // تحديث الحالة حسب الاختيار الذي أرسله المستخدم
         $appointment->status = $request->status;
-        $appointment->save();  // حفظ التغييرات
+        $appointment->save();  
 
-        // إعادة التوجيه مع رسالة نجاح
         return redirect()->route('admin.dashboard')->with('success', 'Appointment status updated successfully');
     }
     public function create()
     {
-        // جلب جميع المستخدمين
         $users = User::where('role', 'patient')->get();
         $doctors = Doctor::all();
         $clinics = Clinic::all();
 
-        // تمرير المستخدمين، الأطباء، والعيادات إلى الصفحة
         return view('admin.create', compact('users', 'doctors', 'clinics'));
     }
 
     public function store(Request $request)
     {
-        // إنشاء موعد جديد
         $appointment = new Appointment();
         $appointment->user_id = $request->user_id;
         $appointment->doctor_id = $request->doctor_id;
         $appointment->clinic_id = $request->clinic_id;
         $appointment->appointment_date = $request->appointment_date;
         $appointment->appointment_time = $request->appointment_time;
-        $appointment->status = 'pending';  // الحالة الافتراضية للموعد
+        $appointment->status = 'pending';  
         $appointment->save();
 
         return redirect()->route('admin.dashboard')->with('success', 'Appointment added successfully');

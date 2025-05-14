@@ -8,6 +8,7 @@ use App\Models\Clinic;
 use Illuminate\Http\Request;
 use Carbon\Carbon;  
 use Illuminate\Support\Facades\DB;
+use App\Notifications\NewAppointmentNotification;
 
 class AppointmentController extends Controller
 {
@@ -17,6 +18,9 @@ class AppointmentController extends Controller
         $doctors = Doctor::all();  
         return view('appointment', compact('clinics', 'doctors'));
     }
+
+
+
     public function create(Request $request)
     {
         if (!auth()->check()) {
@@ -68,7 +72,7 @@ class AppointmentController extends Controller
         $originalTime = Carbon::createFromFormat('H:i', $appointmentTime);
         $reminderTime = $originalTime->subMinutes(10)->format('H:i');
     
-        Appointment::create([
+        $appointment = Appointment::create([
             'user_id' => $patientId,
             'clinic_id' => $request->clinic_id,
             'doctor_id' => $doctorId,
@@ -79,9 +83,18 @@ class AppointmentController extends Controller
             'notes' => $request->notes,
             'status' => 'scheduled',
         ]);
-    
-        return redirect()->route('appointment.form')->with('success', "Appointment booked successfully. Please arrive at $reminderTime  to avoid cancellation.");
-    }
+
+        
+        // Send notification to the doctor
+
+       $doctor = Doctor::with('user')->find($doctorId); 
+       if ($doctor && $doctor->user) {
+           $doctor->user->notify(new NewAppointmentNotification($appointment));
+       }
+
+       return redirect()->route('appointment.form')->with('success', "Appointment booked successfully. Please arrive at $reminderTime to avoid cancellation.");
+   }
+
     
     public function getDoctors($clinicId)
     {
@@ -89,30 +102,6 @@ class AppointmentController extends Controller
         return response()->json($doctors);  
     }
 
-    // public function getAvailableTimes($doctorId, $date)
-    // {
-    //     $start = Carbon::createFromTimeString('08:00');
-    //     $end = Carbon::createFromTimeString('13:00');
-
-    //     $allSlots = [];
-    //     while ($start < $end) {
-    //         $allSlots[] = $start->format('H:i');
-    //         $start->addMinutes(30);
-    //     }
-
-    //     $bookedSlotsRaw = DB::table('appointments')
-    //         ->where('doctor_id', $doctorId)
-    //         ->whereDate('appointment_date', $date)
-    //         ->pluck('appointment_time');
-
-    //     $bookedSlots = $bookedSlotsRaw->map(function ($time) {
-    //         return Carbon::createFromFormat('H:i:s', $time)->format('H:i');
-    //     })->toArray();
-
-    //     $availableSlots = array_diff($allSlots, $bookedSlots);
-
-    //     return response()->json(array_values($availableSlots));
-    // }
 
 
 
@@ -120,7 +109,6 @@ class AppointmentController extends Controller
 
     public function getAvailableTimes($doctorId, $date)
     {
-        // تأكد إن التاريخ مش بالماضي
         $selectedDate = Carbon::parse($date)->startOfDay();
         $today = Carbon::today();
     
@@ -128,7 +116,6 @@ class AppointmentController extends Controller
             return response()->json(['error' => 'Invalid date.'], 400);
         }
     
-        // الأوقات من 8:00 إلى 13:00 مع فاصل 30 دقيقة
         $start = Carbon::createFromTimeString('08:00');
         $end = Carbon::createFromTimeString('13:00');
     
@@ -141,6 +128,8 @@ class AppointmentController extends Controller
         $bookedSlotsRaw = DB::table('appointments')
             ->where('doctor_id', $doctorId)
             ->whereDate('appointment_date', $date)
+            ->where('status', 'scheduled') 
+
             ->pluck('appointment_time');
     
         $bookedSlots = $bookedSlotsRaw->map(function ($time) {
@@ -192,15 +181,22 @@ class AppointmentController extends Controller
 
 
 
-    public function destroy($id)
-    {
-        $appointment = Appointment::findOrFail($id);
-        $appointment->delete();
+ 
 
-        return redirect()->back()->with('success', 'Appointment deleted successfully.');
+    public function cancel($id)
+{
+    $appointment = Appointment::findOrFail($id);
+
+    if ($appointment->user_id !== auth()->id()) {
+        return redirect()->back()->with('error', 'Unauthorized action.');
     }
 
-    
+    $appointment->status = 'canceled';
+    $appointment->save();
+
+    return redirect()->back()->with('success', 'Appointment canceled successfully.');
+}
+
 
 
 }

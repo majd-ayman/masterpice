@@ -11,16 +11,15 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade'); // الطبيب
-            $table->foreignId('clinic_id')->constrained('clinics')->onDelete('cascade'); // العيادة
-            $table->date('appointment_date'); // تاريخ الموعد
-            $table->time('appointment_time'); // وقت الموعد
-            $table->enum('status', ['scheduled', 'confirmed', 'pending', 'completed', 'canceled'])->default('scheduled'); // حالة الموعد
-            $table->enum('appointment_type', ['consultation', 'routine_checkup', 'treatment'])->default('consultation'); // نوع الموعد
-            $table->text('notes')->nullable(); // ملاحظات إضافية
+            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade'); 
+            $table->foreignId('clinic_id')->constrained('clinics')->onDelete('cascade'); 
+            $table->date('appointment_date'); 
+            $table->time('appointment_time'); 
+            $table->enum('status', ['scheduled', 'confirmed', 'pending', 'completed', 'canceled'])->default('scheduled');
+            $table->enum('appointment_type', ['consultation', 'routine_checkup', 'treatment'])->default('consultation'); 
+            $table->text('notes')->nullable();
             $table->timestamps();
 
-            // منع تكرار حجز نفس المريض لنفس الطبيب في نفس العيادة بنفس اليوم وفي نفس الوقت
             $table->unique(['doctor_id', 'appointment_date', 'appointment_time'], 'unique_doctor_time');
         });
     }

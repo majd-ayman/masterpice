@@ -1,28 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Superadmen;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Appointment;  // استيراد موديل المواعيد
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Clinic;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth; 
+
 class SuperadmenController extends Controller
 {
-   
+
     public function index()
     {
-        // جلب المواعيد
-        $appointments = Appointment::with('user', 'clinic')  // ربط المواعيد مع المستخدم والعيادة
-            ->orderBy('appointment_date', 'desc')  // ترتيب المواعيد حسب التاريخ
-            ->take(10)  // تحديد عدد المواعيد المعروضة (10 مواعيد على سبيل المثال)
+        $appointments = Appointment::with('user', 'clinic')
+            ->orderBy('appointment_date', 'desc')
+            ->take(10)
             ->get();
 
-        // إرجاع العرض مع البيانات
         return view('superAdmin.dashboard', compact('appointments'));
     }
-
     public function dashboard()
     {
         $doctorsCount = Doctor::count();
@@ -32,8 +32,8 @@ class SuperadmenController extends Controller
         $completedAppointments = Appointment::where('status', 'completed')->count();
         $canceledAppointments = Appointment::where('status', 'canceled')->count();
         // $reviewsCount = Review::count();
-        $contactMessages = \App\Models\Contact::latest()->take(5)->get(); // جلب آخر 5 رسائل
-    
+        $contactMessages = \App\Models\Contact::latest()->take(5)->get();
+
         return view('superAdmin.charts', compact(
             'doctorsCount',
             'clinicsCount',
@@ -45,5 +45,17 @@ class SuperadmenController extends Controller
             'contactMessages'
         ));
     }
+
+    public function showProfile()
+    {
+        $supperadmin = Auth::user();
+        return view('superAdmin.showmyprofile', compact('supperadmin'));
+    }
+
     
+    public function editmyprofile()
+    {
+        $supperadmin = Auth::user();
+        return view('superAdmin.editmyprofile', compact('supperadmin'));
+    }
 }

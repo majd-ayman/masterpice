@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ asset('css/register/register.css') }}">
 </head>
 
 <body>
+    @include('partials.header')
 
-    <div class="register-container">
+    <div class="register-container ">
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -22,13 +22,13 @@
                 <h2><i class="fa-solid fa-user-plus"></i> Register</h2>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-2">
                 <div class="col-md-6">
                     <label class="form-label">Name:</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                         <input name="name" type="text" id="name" class="form-control form-control-lg"
-                            required>
+                            placeholder="Please enter your name" required>
                     </div>
                     <div class="mt-1">
                         <small id="nameError" class="text-danger d-none">Invalid name, use letters only, no extra
@@ -45,12 +45,13 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                         <input name="email" type="email" id="email" class="form-control form-control-lg"
-                            required>
+                            placeholder="Please enter your email" required>
                     </div>
                     <div class="mt-1">
                         <small id="emailError" class="text-danger d-none">❌ Invalid email format.</small>
                         <small id="emailSuccess" class="text-success d-none">✅ Valid email!</small>
-                        <small id="emailTakenError" class="text-danger d-none">❌ This email is already taken.</small>
+                        <small id="emailTakenError" class="text-danger d-none">❌ This email is already
+                            taken.</small>
                     </div>
                     @error('email')
                         <small class="text-danger">{{ $message }}</small>
@@ -64,13 +65,14 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                         <input name="password" type="password" id="password" class="form-control form-control-lg"
-                            required>
+                            placeholder="Please enter your password" required>
                         <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
                             <i class="fas fa-eye"></i>
                         </span>
                     </div>
                     <div class="mt-1">
-                        <small id="passwordError" class="text-danger d-none">❌ Password must be at least 8 characters,
+                        <small id="passwordError" class="text-danger d-none">❌ Password must be at least 8
+                            characters,
                             include uppercase, lowercase, number, and special character.</small>
                         <small id="passwordStrength" class="text-warning d-none"></small>
                         <small id="passwordValid" class="text-success d-none">✅ Password is valid!</small>
@@ -82,13 +84,14 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                         <input name="password_confirmation" type="password" id="password_confirmation"
-                            class="form-control form-control-lg" required>
+                            class="form-control form-control-lg" placeholder="Please confirm your password" required>
                         <span class="input-group-text" id="toggleConfirmPassword" style="cursor: pointer;">
                             <i class="fas fa-eye"></i>
                         </span>
                     </div>
                     <div class="mt-1">
-                        <small id="confirmPasswordError" class="text-danger d-none">❌ Passwords do not match.</small>
+                        <small id="confirmPasswordError" class="text-danger d-none">❌ Passwords do not
+                            match.</small>
                         <small id="confirmPasswordValid" class="text-success d-none">✅ Passwords match!</small>
                     </div>
                 </div>
@@ -99,10 +102,12 @@
                     <label class="form-label">Phone Number:</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        <input name="phone" type="text" id="phone" class="form-control form-control-lg">
+                        <input name="phone" type="text" id="phone" class="form-control form-control-lg"
+                            placeholder="Please enter your phone number" required>
                     </div>
                     <div class="mt-1">
-                        <small id="phoneError" class="text-danger d-none">❌ Invalid phone number. It should be 10 digits
+                        <small id="phoneError" class="text-danger d-none">❌ Invalid phone number. It should be 10
+                            digits
                             starting with 079, 078, or 077.</small>
                         <small id="phoneSuccess" class="text-success d-none">✅ Valid phone number!</small>
                     </div>
@@ -115,11 +120,16 @@
                         <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
                         <select name="gender" id="gender" class="form-select form-select-lg" required>
                             <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                            <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female
+                            </option>
                         </select>
                     </div>
+                    @error('gender')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
+
             </div>
 
             <div class="row mb-3">
@@ -127,8 +137,9 @@
                     <label class="form-label">Age:</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                        <input name="age" type="number" id="age" class="form-control form-control-lg"
-                            min="1" max="120" required>
+                        <input name="age" type="number" id="age" class="form-control"
+                            placeholder="Please enter your age" min="1" max="120" required
+                            value="{{ old('age') }}">
                     </div>
 
                     <div class="mt-1">
@@ -183,22 +194,14 @@
 
 
 
-
     <script src="{{ asset('js/register/register.js') }}"></script>
-    <div class="text-center">
-
-        <a href="{{ route('index') }}" class="btn btn-secondary">Back</a>
-    </div>
 
 
 
 
 
 
-    @if (session('success'))
-        <p>{{ session('success') }}</p>
-        log
-    @endif
+
 
 
     @if (session('success'))

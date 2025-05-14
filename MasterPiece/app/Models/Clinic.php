@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Clinic extends Model
 {
-    use HasFactory, SoftDeletes; 
+    use HasFactory, SoftDeletes;
     protected $table = 'clinics';
 
     protected $fillable = [
@@ -16,8 +16,9 @@ class Clinic extends Model
         'location',
         'contact_number',
         'facilities',
+        'icon',
         'description',
-        
+
     ];
 
     protected $dates = ['deleted_at'];

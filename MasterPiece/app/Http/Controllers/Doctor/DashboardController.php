@@ -21,8 +21,7 @@ class DashboardController extends Controller
         $doctor = auth()->user()->doctor;
 
         if (!$doctor) {
-            return redirect()->route('home')->with('error', 'لم يتم تسجيل بياناتك كطبيب بعد. الرجاء التواصل مع الإدارة.');
-        }
+return redirect()->route('home')->with('error', 'Your data has not been registered as a doctor yet. Please contact the administration.');        }
 
         $todayAppointments = Appointment::where('doctor_id', $doctor->id)
             ->whereDate('appointment_date', Carbon::today())
@@ -39,7 +38,7 @@ class DashboardController extends Controller
             ->count();
 
         $confirmedAppointmentsCount = Appointment::where('doctor_id', $doctor->id)
-            ->where('status', 'confirmed')
+            ->where('status', 'scheduled')
             ->count();
 
         $canceledAppointmentsCount = Appointment::where('doctor_id', $doctor->id)
@@ -61,8 +60,7 @@ class DashboardController extends Controller
         $doctor = auth()->user()->doctor;
 
         if (!$doctor) {
-            return redirect()->route('home')->with('error', 'لم يتم تسجيل بياناتك كطبيب بعد. الرجاء التواصل مع الإدارة.');
-        }
+return redirect()->route('home')->with('error', 'Your data has not been registered as a doctor yet. Please contact the administration.');        }
 
         return view('doctor.edit', compact('doctor'));
     }
@@ -72,8 +70,7 @@ class DashboardController extends Controller
         $doctor = auth()->user()->doctor;
 
         if (!$doctor) {
-            return redirect()->route('home')->with('error', 'لم يتم تسجيل بياناتك كطبيب بعد. الرجاء التواصل مع الإدارة.');
-        }
+return redirect()->route('home')->with('error', 'Your data has not been registered as a doctor yet. Please contact the administration.');        }
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -114,8 +111,7 @@ class DashboardController extends Controller
 
         $doctor->save();
 
-        return redirect()->route('doctor.dashboard')->with('success', 'تم تحديث بياناتك بنجاح');
-    }
+return redirect()->route('doctor.dashboard')->with('success', 'Your data was updated successfully');   }
     public function create($appointmentId)
     {
         $appointment = Appointment::with('user')->findOrFail($appointmentId);
@@ -168,7 +164,6 @@ class DashboardController extends Controller
 {
     $doctor = Doctor::findOrFail($doctorId);
 
-    // جلب السجلات المرضية للمرضى الذين حجزوا مواعيد مع هذا الطبيب
     $appointments = Appointment::where('doctor_id', $doctor->id)->pluck('id');
 
     $medicalHistories = MedicalHistory::whereIn('appointment_id', $appointments)->get();
@@ -182,7 +177,6 @@ public function show($userId)
 {
     $user = User::findOrFail($userId);
 
-    // افترض أنك تريد إحضار آخر سجل فقط
     $history = MedicalHistory::where('user_id', $userId)->latest()->first();
 
     return view('doctor.medical_history_show', compact('user', 'history'));

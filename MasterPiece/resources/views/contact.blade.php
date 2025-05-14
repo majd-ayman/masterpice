@@ -187,45 +187,36 @@
         });
     </script>
     <script>
-        // دالة لعد الكلمات المتبقية
         function countWords() {
             let message = document.getElementById('message').value;
-            // عد الكلمات باستخدام split وتجاهل الفراغات الزائدة
             let wordCount = message.trim().split(/\s+/).length;
             if (message.trim() === "") {
                 wordCount = 0;
             }
 
-            // تحديد الحد الأقصى للكلمات
             const maxWords = 50;
 
-            // حساب عدد الكلمات المتبقية
             let remainingWords = maxWords - wordCount;
 
-            // منع المستخدم من تجاوز الحد الأقصى
             if (wordCount > maxWords) {
-                // تقليص النص ليشمل أول 50 كلمة فقط
                 message = message.trim().split(/\s+/).slice(0, maxWords).join(" ");
                 document.getElementById('message').value = message;
-                remainingWords = 0; // إذا تجاوز الحد، لا تبقى كلمات.
+                remainingWords = 0; 
             }
 
-            // تحديث العداد في الصفحة
             document.getElementById('wordCount').textContent = `Words left: ${remainingWords}`;
 
-            // إيقاف الكتابة إذا تم الوصول للحد الأقصى
             if (wordCount >= maxWords) {
-                document.getElementById('message').setAttribute("maxlength", "9999"); // إلغاء الحد في HTML
-                document.getElementById('message').disabled = true; // تعطيل الحقل لمنع الكتابة
+                document.getElementById('message').setAttribute("maxlength", "9999"); 
+                document.getElementById('message').disabled = true;
                 setTimeout(() => {
                     alert("You have reached the maximum word limit of 50 words.");
                 }, 100);
             } else {
-                document.getElementById('message').disabled = false; // تمكين الكتابة إذا كانت أقل من الحد
+                document.getElementById('message').disabled = false; 
             }
         }
 
-        // إضافة الحدث إلى الـ textarea
         document.getElementById('message').addEventListener('input', countWords);
     </script>
     @endif

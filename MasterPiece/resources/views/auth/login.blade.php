@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
- <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
-    <!-- Bootstrap + Font Awesome + SweetAlert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/login/login.css') }}">
-
-    <!-- Custom CSS -->
-</head> 
-{{-- <style>
-
-    
-    </style> --}}
-
+    <link rel="stylesheet" href="{{ asset('css/login/login.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+</head>
+
+
 @include('partials.header')
+
 <body>
 
     <div class="container d-flex flex-column align-items-center">
@@ -28,11 +22,11 @@
         <div class="login-container" style="max-width: 400px; width: 100%;">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-    
+
                 <div class="form-header text-center mb-4">
                     <h2><i class="fa-solid fa-user"></i> Login</h2>
                 </div>
-    
+
                 <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label">Email:</label>
@@ -44,7 +38,7 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-    
+
                 <!-- Password -->
                 <div class="mb-3">
                     <label class="form-label">Password:</label>
@@ -56,29 +50,29 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-    
+
                 <!-- Submit -->
                 <button type="submit" class="btn w-100" style="background-color: #e12454; color: white;">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
-    
+
                 <p class="text-center mt-3">
                     Don't have an account?
                     <a href="{{ route('register') }}" class="text-login">Register</a>
                 </p>
             </form>
         </div>
-    
 
 
 
-    
+
+
     </div>
-    
-    
 
 
-    
+
+
+
     @if (session('error'))
         <script>
             Swal.fire({
@@ -88,6 +82,17 @@
             });
         </script>
     @endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+            });
+        </script>
+    @endif
+
+
 
     <script src="{{ asset('js/login/login.js') }}"></script>
 </body>

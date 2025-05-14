@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Appointment;
 
 
-use App\Http\Requests\StoreReviewRequest; // إذا كنت تستخدم Validation Request
+use App\Http\Requests\StoreReviewRequest; 
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -50,13 +50,11 @@ class ReviewController extends Controller
 
 public function comment()
 {
-    // جلب الكومنتات وترتيبها من الأحدث
     $reviews = Review::with('user')
         ->orderBy('created_at', 'desc')
         ->take(5)
         ->get();
 
-    // عرض الكومنتات في صفحة index
     return view('index', compact('reviews'));
 }
 
@@ -64,29 +62,20 @@ public function comment()
 
 public function store(Request $request)
     {
-        // التأكد من تسجيل الدخول
         if (!auth()->check()) {
-            return redirect()->back()->with('error', 'يجب تسجيل الدخول أولاً لتقييم الموعد.');
-        }
+return redirect()->back()->with('error', 'You must log in first to evaluate the appointment.');        }
 
-        // التحقق من وجود الموعد
         $appointment = Appointment::find($request->appointment_id);
 
         if (!$appointment) {
-            return redirect()->back()->with('error', 'الموعد غير موجود.');
-        }
+return redirect()->back()->with('error', 'The appointment does not exist.');        }
 
-        // التأكد من أن المستخدم هو الذي حجز الموعد
         if ($appointment->user_id != auth()->id()) {
-            return redirect()->back()->with('error', 'لا يمكنك تقييم هذا الموعد، لأنه ليس من حجزه.');
-        }
+return redirect()->back()->with('error', 'You cannot evaluate this appointment, because it is not booked.');        }
 
-        // التأكد من أن الموعد تم الانتهاء منه
-        if ($appointment->status !== 'completed') {  // أو الحالة التي تدل على أنه تم الانتهاء من الموعد
-            return redirect()->back()->with('error', 'لا يمكنك إضافة التقييم إلا بعد حضور الموعد.');
-        }
+        if ($appointment->status !== 'completed') {  
+return redirect()->back()->with('error', 'You can only add the evaluation after attending the appointment.');        }
 
-        // التحقق من صحة البيانات المدخلة
         $request->validate([
             'doctor_id' => 'required|exists:doctors,id',
             'appointment_id' => 'required|exists:appointments,id',
@@ -94,7 +83,6 @@ public function store(Request $request)
             'rating' => 'required|integer|min:1|max:5',
         ]);
 
-        // إضافة التقييم في قاعدة البيانات
         Review::create([
             'user_id' => auth()->id(),
             'doctor_id' => $request->doctor_id,
@@ -103,7 +91,5 @@ public function store(Request $request)
             'rating' => $request->rating,
         ]);
 
-        // إرجاع رسالة نجاح
-        return redirect()->back()->with('success', 'تم إرسال التقييم بنجاح!');
-    }
+return redirect()->back()->with('success', 'Evaluation submitted successfully!');    }
 }

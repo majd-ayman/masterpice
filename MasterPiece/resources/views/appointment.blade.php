@@ -5,13 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Book an appointment easily.">
-    <title>Masterpiece - Book an Appointment</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/icofont/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -222,8 +219,11 @@
                         
                             <!-- Submit Button -->
                             <div class="form-group">
-                                <button type="submit" class="btn btn-main btn-round-full">Make Appointment</button>                            </div>
+
+                                <button type="submit" class="btn btn-main btn-round-full">Make Appointment</button>                
+                            </div>
                         </form>
+
                         
 
 
@@ -244,7 +244,6 @@
                             document.getElementById("appointment-form").addEventListener("submit", function(e) {
                                 let isValid = true;
 
-                                // التحقق من الاسم
                                 const nameInput = document.getElementById("name");
                                 const nameValue = nameInput.value.trim();
                                 const nameError = document.querySelector(".name-error");
@@ -257,7 +256,6 @@
                                     nameError.textContent = "";
                                 }
 
-                                // التحقق من رقم الهاتف
                                 const phoneInput = document.getElementById("phone");
                                 const phoneValue = phoneInput.value.trim();
                                 const phoneError = document.querySelector(".phone-error");
@@ -270,7 +268,6 @@
                                     phoneError.textContent = "";
                                 }
 
-                                // التحقق من الملاحظات
                                 const notesInput = document.getElementById("notes");
                                 const notesValue = notesInput.value.trim();
                                 const notesError = document.querySelector(".notes-error");
@@ -290,7 +287,6 @@
                                 if (!isValid) e.preventDefault();
                             });
 
-                            // عداد الكلمات
                             document.getElementById("notes").addEventListener("input", function() {
                                 const words = this.value.trim().split(/\s+/).filter(word => word !== "");
                                 const counter = document.getElementById("word-count");
@@ -306,12 +302,11 @@
                                 minDate: "today",
                                 disable: [
                                     function(date) {
-                                        // أيام الجمعة (5) والسبت (6)
                                         return (date.getDay() === 5 || date.getDay() === 6);
                                     }
                                 ],
                                 locale: {
-                                    firstDayOfWeek: 6 // يبدأ الأسبوع من السبت لو حبيت
+                                    firstDayOfWeek: 6 
                                 }
                             });
                         </script>

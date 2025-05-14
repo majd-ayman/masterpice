@@ -29,6 +29,10 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/styleadmin.css') }}" rel="stylesheet">
+    <!-- IcoFont CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icofont/1.0.1/icofont.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -49,7 +53,9 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <div class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                    <a href="#">
+                        <img src="{{ asset('images/calmoram.png') }}" alt="Site Logo" style="height: 50px;">
+                    </a>
                 </div>
 
                 @php
@@ -72,39 +78,71 @@
                 </div>
 
 
+                <style>
+                    .nav-item {
+                        color: black;
+                    }
 
-                <ul>
-                    <li>
-                        <a href="{{ route('superAdmin.dashboard') }}" class="nav-item nav-link">
-                            <i class="fa fa-chart-bar me-2"></i> Dashboard
-                        </a>
-                        
-                    </li>
+                    .nav-item i {
+                        color: red;
+                    }
+                </style>
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ route('superAdmin.doctors.index') }}" class="nav-link">
+                        <a href="{{ route('superAdmin.dashboard') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.dashboard') ? 'active' : '' }}">
+                            <i class="fa fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('superAdmin.doctors.index') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.doctors.*') ? 'active' : '' }}">
                             <i class="bi bi-person-fill me-2"></i> Manage Doctors
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <!-- زر للوصول إلى صفحة العيادات -->
-                        <a href="{{ route('superAdmin.clinics.index') }}" class="nav-link">
+                        <a href="{{ route('superAdmin.clinics.index') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.clinics.*') ? 'active' : '' }}">
                             <i class="fa fa-hospital me-2"></i> Manage Clinics
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a href="{{ route('superAdmin.departments.index') }}" class="nav-link">
+                        <a href="{{ route('superAdmin.departments.index') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.departments.*') ? 'active' : '' }}">
                             <i class="fa fa-cogs me-2"></i> Manage Departments
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('superAdmin.dashboard') }}" class="nav-item nav-link">
-                            <i class="fa fa-chart-bar me-2"></i>Charts
+
+                    <li class="nav-item">
+                        <a href="{{ route('superAdmin.dashboard') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.dashboard') ? 'active' : '' }}">
+                            <i class="fa fa-chart-bar me-2"></i> Charts
                         </a>
-                        
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('superAdmin.editprofile') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.dashboard') ? 'active' : '' }}">
+                            <i class="fa fa-user-edit me-2"></i> Edit My Profile
+                        </a>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a href="{{ route('superAdmin.showprofile') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.showprofile') ? 'active' : '' }}">
+                            <i class="fa fa-user me-2"></i> Show My Profile
+                        </a>
+                    </li>
+
+
                 </ul>
-                
-              
+
+
+
             </nav>
 
 
@@ -127,7 +165,7 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-               
+
 
                     @php
                         use Illuminate\Support\Facades\Auth;
@@ -156,3 +194,4 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+          

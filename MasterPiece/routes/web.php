@@ -49,7 +49,6 @@ Route::get('/doctors', [ClinicController::class, 'doctor'])->name('doctors.index
 
 Route::get('/', [ClinicController::class, 'index'])->name('home');
 
-// هون راوت السيرفيس بدي اشغله ك كونترولير لازم عشان اجيب صفحة الخدمات ك دايناميك 
 Route::get('/service', function () {
     return view('service');
 })->name('service');
@@ -72,7 +71,6 @@ Route::post('/appoinment', [AppointmentController::class, 'create'])->name('appo
 
 Route::get('/get-available-times/{doctorId}/{date}', [AppointmentController::class, 'getAvailableTimes']);
 
-//لحد هون بدهم شغل //////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -89,44 +87,85 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 ////////////////////////////////////////user profile/////////////////////////////////////////////////
 
-// عرض بيانات الحساب (الصفحة الرئيسية للمستخدم)
-Route::get('/user-account/my-account', [PatientController::class, 'showMyAccount'])->name('user-account.my-account');
+// Route::get('/user-account/my-account', [PatientController::class, 'showMyAccount'])->name('user-account.my-account');
 
-Route::get('/user-account/update-profile', [PatientController::class, 'editProfile'])->name('user-account.editProfile');
+// Route::get('/user-account/update-profile', [PatientController::class, 'editProfile'])->name('user-account.editProfile');
 
-Route::post('/my-account/update-profile', [PatientController::class, 'updateProfile'])->name('user-account.updateProfile');
-
-
-// Route::delete('/appointments/{id}', [PatientController::class, 'destroy'])->name('patient.appointments.destroy');
+// Route::post('/my-account/update-profile', [PatientController::class, 'updateProfile'])->name('user-account.updateProfile');
 
 
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/medical-history', [MedicalHistoryController::class, 'create'])->name('medical-history.create');
+//     Route::post('/medical-history', [MedicalHistoryController::class, 'store'])->name('medical-history.store');
+// });
 
 
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/user-account/medical-history', [MedicalHistoryController::class, 'create'])
+//         ->name('user-account.medicalHistory');
+// });
+
+// Route::resource('appointments', AppointmentController::class);
+
+
+// Route::get('/user-account/search', [PatientController::class, 'search'])->name('user-account.search');
+
+// Route::delete('/profile-picture/delete', [PatientController::class, 'deleteProfilePicture'])->name('profile-picture.delete');
+
+// Route::get('user/appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('myappointments.edit');
+// Route::put('user/appointments/{id}', [AppointmentController::class, 'update'])->name('myappointments.update');
+// Route::get('/book-now', function () {
+//     return view('user-account.book-now');
+// })->name('book.now');
+
+// Route::patch('/appointments/{id}/cancel', [AppointmentController::class, 'cancel'])->name('appointments.cancel');
+
+
+
+
+// Group for all authenticated user account routes
+Route::middleware(['auth'])->prefix('user-account')->name('user-account.')->group(function () {
+    // Show user account page
+    Route::get('/my-account', [PatientController::class, 'showMyAccount'])->name('my-account');
+
+    // Edit user profile page
+    Route::get('/update-profile', [PatientController::class, 'editProfile'])->name('editProfile');
+
+    // Handle profile update submission
+    Route::post('/update-profile', [PatientController::class, 'updateProfile'])->name('updateProfile');
+
+    // Show user's medical history
+    Route::get('/medical-history', [MedicalHistoryController::class, 'create'])->name('medicalHistory');
+
+    // Search inside user account
+    Route::get('/search', [PatientController::class, 'search'])->name('search');
+});
+
+// Delete profile picture
+Route::delete('/profile-picture/delete', [PatientController::class, 'deleteProfilePicture'])->name('profile-picture.delete');
+
+// Medical history creation and storage (general, outside of user account section)
 Route::middleware(['auth'])->group(function () {
     Route::get('/medical-history', [MedicalHistoryController::class, 'create'])->name('medical-history.create');
     Route::post('/medical-history', [MedicalHistoryController::class, 'store'])->name('medical-history.store');
 });
 
+// Appointment resource routes (index, create, store, etc.)
+Route::resource('appointments', AppointmentController::class);
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user-account/medical-history', [MedicalHistoryController::class, 'create'])
-        ->name('user-account.medicalHistory');
-});
-
-Route::resource('appointments', AppointmentController::class);  
-
-
-Route::get('/user-account/search', [PatientController::class, 'search'])->name('user-account.search');
-
-Route::delete('/profile-picture/delete', [PatientController::class, 'deleteProfilePicture'])->name('profile-picture.delete');
-
+// Edit user appointment
 Route::get('user/appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('myappointments.edit');
+
+// Update user appointment
 Route::put('user/appointments/{id}', [AppointmentController::class, 'update'])->name('myappointments.update');
+
+// Cancel appointment
+Route::patch('/appointments/{id}/cancel', [AppointmentController::class, 'cancel'])->name('appointments.cancel');
+
+// Show "Book Now" page
 Route::get('/book-now', function () {
     return view('user-account.book-now');
 })->name('book.now');
-
-
 
 
 
@@ -137,10 +176,10 @@ Route::get('/service', [ServiceController::class, 'index'])->name('service');
 
 
 
-Route::get('/index', [ClinicController::class, 'index'])->name('index'); // هذا هو الراوت لعرض العيادات في الصفحة الرئيسية
-Route::resource('clinics', ClinicController::class); // هذا يستخدم RESTful routes لإدارة العيادات
-Route::get('clinics/{id}/restore', [ClinicController::class, 'restore'])->name('clinics.restore'); // استعادة عيادة محذوفة
-Route::delete('clinics/{id}/force-delete', [ClinicController::class, 'forceDelete'])->name('clinics.forceDelete'); // حذف عيادة نهائيًا
+Route::get('/index', [ClinicController::class, 'index'])->name('index'); 
+Route::resource('clinics', ClinicController::class); 
+Route::get('clinics/{id}/restore', [ClinicController::class, 'restore'])->name('clinics.restore'); 
+Route::delete('clinics/{id}/force-delete', [ClinicController::class, 'forceDelete'])->name('clinics.forceDelete'); 
 
 
 
@@ -155,9 +194,7 @@ Route::get('/check-email', function (Request $request) {
 
 
 
-Route::get('/table', function () {
-    return view('admin.table');  // تأكد من أن `admin.table` هو اسم الصفحة الصحيحة.
-})->name('table');  // تأكد من أن هنا `table` هو اسم الراوت.
+
 Route::get('/chart', function () {
     return view('admin.chart');
 })->name('chart');
@@ -234,56 +271,53 @@ Route::group(['middleware' => ['auth']], function () {
 
     //     Route::get('/admin', function () {
     //         return view('admin.index');
-    //     })->middleware('role:admin'); // تحقق من كون المستخدم "admin"
+    //     })->middleware('role:admin';
 
-    // للسكرتير
     Route::get('/secretary-dashboard', function () {
         return view('admin.secretary_dashboard');
     })->middleware('role:secretary');
 });
 
-// للمريض
-// Route::get('/patient-dashboard', function () {
-//     return view('admin.patient_dashboard');
-// })->middleware('role:patient');
 
-////////////////////////////////////////////////////14/4 6:49pm//////////////////////////////////////////////////////////////////////////////////////////
 
-// // حماية للمسار
+
 Route::middleware(['auth', 'role:doctor'])->group(function () {
-        Route::get('/doc', [DashboardController::class, 'index'])->name('doctor.dashboard');
-        Route::get('/doctor/edit/profile', [DashboardController::class, 'edit'])->name('doctor.edit.info');
-        Route::post('/doctor/update', [DashboardController::class, 'update'])->name('doctor.update');
-        Route::get('/doctor/{id}', [ClinicController::class, 'doctorSingle'])->name('doctor.show');
+    Route::get('/doc', [DashboardController::class, 'index'])->name('doctor.dashboard');
+    Route::get('/doctor/edit/profile', [DashboardController::class, 'edit'])->name('doctor.edit.info');
+    Route::post('/doctor/update', [DashboardController::class, 'update'])->name('doctor.update');
+    Route::get('/doctor/{id}', [ClinicController::class, 'doctorSingle'])->name('doctor.show');
 
-        Route::get('/medical-records/create/{appointmentId}', [DashboardController::class, 'create'])->name('doctor.medical-records.create');
-        Route::post('/medical-records/store', [DashboardController::class, 'store'])->name('doctor.medical-records.store');
+    Route::get('/medical-records/create/{appointmentId}', [DashboardController::class, 'create'])->name('doctor.medical-records.create');
+    Route::post('/medical-records/store', [DashboardController::class, 'store'])->name('doctor.medical-records.store');
 
 
     Route::get('/doctor/medical-history/{user}', [DashboardController::class, 'show'])->name('doctor.medical_history.show');
-
+    Route::post('/notifications/mark-as-read', function () {
+        auth()->user()->unreadNotifications->markAsRead();
+        return back();
+    })->name('notifications.markAsRead');
 });
 
 
 
 
 
-    // Route::get('/doc', [DashboardController::class, 'index'])->name('doctor.dashboard');
-    // Route::get('/doctor/edit/profile', [DashboardController::class, 'edit'])->name('doctor.edit.info');
-    // Route::post('/doctor/update', [DashboardController::class, 'update'])->name('doctor.update');
+// Route::get('/doc', [DashboardController::class, 'index'])->name('doctor.dashboard');
+// Route::get('/doctor/edit/profile', [DashboardController::class, 'edit'])->name('doctor.edit.info');
+// Route::post('/doctor/update', [DashboardController::class, 'update'])->name('doctor.update');
 // });
 
 
 // Routes for Reviews
-// Route::get('/reviews/doctor/{doctorId}', [ReviewContrاoller::class, 'showReviewsByDoctor']); مش عارفة هاد الراوت انا عاملة كومنت للفنكشن تبعه يمكن يكون زيادة ومابدي ياه 
+// Route::get('/reviews/doctor/{doctorId}', [ReviewContrاoller::class, 'showReviewsByDoctor']);
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 // Route::post('/reviews', [ReviewController::class, 'store']);
 
 
 
 
-////////////////////////////////////////
-//midellwaresuperadmin
+///////////////////////////////////////////////////midellwaresuperadmin/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 Route::middleware('role:superadmen')->prefix('superadmin')->group(function () {
@@ -291,6 +325,8 @@ Route::middleware('role:superadmen')->prefix('superadmin')->group(function () {
     // Dashboard
     Route::get('/dashboard', [SuperadmenController::class, 'index'])->name('superAdmin.dashboard');
     Route::get('/charts', [SuperadmenController::class, 'dashboard'])->name('superAdmin.charts');
+    Route::get('/editmyprofile', [SuperadmenController::class, 'editmyprofile'])->name('superAdmin.editprofile');
+    Route::get('/profile', [SuperAdmenController::class, 'showProfile'])->name('superAdmin.showprofile');
 
 
     // Doctors
@@ -342,4 +378,3 @@ Route::middleware('role:superadmen')->prefix('superadmin')->group(function () {
 
 Route::get('/doctor/{id}', [ClinicController::class, 'doctorSingle'])->name('doctor.show');
 Route::get('/doctor/{id}', [DoctorController::class, 'show'])->name('doctor.show');
-

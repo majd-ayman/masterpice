@@ -55,7 +55,6 @@
 
                 @php $user = Auth::user(); @endphp
 
-                {{-- Sidebar User Image --}}
 
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -244,6 +243,7 @@
                 </div>
 
 
+
                 <!-- Appointments -->
                 <div class="card mb-3">
                     <div class="card-header">My Appointments</div>
@@ -276,25 +276,18 @@
                                                 <td>{{ ucfirst($appointment->status) }}</td>
 
                                                 <td>
-                                                    <!-- Delete Button -->
-                                                    {{-- <form action="{{ route('appointments.destroy', $appointment->id) }}" method="POST" style="display:inline-block;">
+                                                    <form action="{{ route('appointments.cancel', $appointment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this appointment?')">
                                                         @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
-                                                    </form> --}}
-                                                    <form id="delete-form-{{ $appointment->id }}"
-                                                        action="{{ route('appointments.destroy', $appointment->id) }}"
-                                                        method="POST" style="display:inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="confirmDelete({{ $appointment->id }})">Delete</button>
+                                                        @method('PATCH')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                                        <a href="{{ route('myappointments.edit', $appointment->id) }}"
+                                                            class="btn btn-primary btn-sm" style="display:inline-block;">
+                                                            Edit
+                                                        </a>
+                                               
                                                     </form>
-
-                                                    <a href="{{ route('myappointments.edit', $appointment->id) }}"
-                                                        class="btn btn-primary btn-sm" style="display:inline-block;">
-                                                        Edit
-                                                    </a>
+                                                    
+                                                    
 
 
                                                 </td>
@@ -362,24 +355,6 @@
             });
         </script>
     @endif
-    <script>
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You can't undo a deletion!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + id).submit();
-                }
-            })
-        }
-    </script>
 
 </body>
 

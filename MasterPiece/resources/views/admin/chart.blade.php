@@ -1,4 +1,4 @@
-@include('admin.app.header')
+{{-- @include('admin.app.header')
 
 <div class="container-fluid pt-4 px-4">
     <div class="bg-white rounded-4 shadow p-4 mb-4">
@@ -125,4 +125,4 @@
             }
         }
     });
-</script>
+</script> --}}

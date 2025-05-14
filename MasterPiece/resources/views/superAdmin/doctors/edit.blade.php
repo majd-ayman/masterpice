@@ -2,7 +2,12 @@
 
 @include('superAdmin.ap.header')
     <div class="container">
-        <h1>Edit Doctor</h1>
+        <h1 style="font-weight: 500;">Edit Doctor</h1>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
         <form action="{{ route('superAdmin.doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -93,7 +98,7 @@
                 <input type="text" name="working_days" class="form-control" value="{{ json_encode($doctor->working_days) }}">
             </div>
 
-            <button type="submit" class="btn btn-success">Update Doctor</button>
+            <button type="submit" class="btn btn-primary mt-3 mp-4">Update Doctor</button>
         </form>
     </div>
 @include('superAdmin.ap.footer')

@@ -8,12 +8,18 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-// use App\Models\User;
-// use App\Models\Appointment;
+use App\Models\User;
 class PatientController extends Controller
 {
     public function showMyAccount()
     {
+
+if (!Auth::check()) {
+return redirect()->route('login')->with('error', 'Session expired, please log in again.');
+}
+
+
+
         if (Auth::check() && Auth::user()->role == 'admin') {
             return redirect()->route('admin.dashboard');
         }
@@ -25,10 +31,19 @@ class PatientController extends Controller
         }
         $user = Auth::user();
         $medicalRecord = MedicalRecord::where('user_id', $user->id)->latest()->first();
-        $appointments = $user->appointments()->latest()->get();
+
+
+
+        $appointments = Appointment::where('user_id', auth()->id())
+                                ->where('status', 'scheduled') 
+                                ->with(['doctor', 'clinic'])
+                                ->orderBy('appointment_date', 'asc')
+                                ->get();
         return view('user-account.my-account', compact('user', 'medicalRecord', 'appointments'));
     }
 
+
+    
     public function updateProfile(Request $request)
     {
 
@@ -44,20 +59,16 @@ class PatientController extends Controller
 
         $user = auth()->user();
 
-        // إذا تم رفع صورة جديدة
         if ($request->hasFile('profile_picture')) {
-            // حذف القديمة إذا موجودة
             if ($user->profile_picture && Storage::exists('public/profile_pictures/' . $user->profile_picture)) {
                 Storage::delete('public/profile_pictures/' . $user->profile_picture);
             }
 
-            // رفع الصورة الجديدة
             $profilePicture = $request->file('profile_picture');
             $profilePicturePath = $profilePicture->store('profile_pictures', 'public');
             $user->profile_picture = basename($profilePicturePath);
         }
 
-        // تحديث الحقول الأخرى
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
@@ -72,10 +83,13 @@ class PatientController extends Controller
         return redirect()->route('user-account.my-account')->with('success', 'Profile updated successfully!');
     }
 
+
+
+
     public function editProfile()
 {
     $user = Auth::user();
-    return view('user-account.edit-profile', compact('user')); // تأكد من أن ملف الـBlade موجود في هذا المسار
+    return view('user-account.edit-profile', compact('user')); 
 }
 
 public function destroy($id)
@@ -88,17 +102,13 @@ public function destroy($id)
 
 
 
-// Function to handle profile picture upload
 public function deleteProfilePicture()
 {
     $user = auth()->user();
 
-    // تحقق إذا كانت الصورة موجودة في التخزين
     if ($user->profile_picture && Storage::exists('public/profile_pictures/' . $user->profile_picture)) {
-        // حذف الصورة من التخزين
         Storage::delete('public/profile_pictures/' . $user->profile_picture);
 
-        // تحديث قاعدة البيانات
         $user->profile_picture = null;
         $user->save();
         
@@ -114,7 +124,6 @@ public function search(Request $request)
 {
     $query = $request->input('query');
 
-    // بحث عن مواعيد المستخدم الحالي
     $appointments = Appointment::where('user_id', auth()->id())
                     ->where(function($q) use ($query) {
                         $q->where('appointment_date', 'like', "%$query%")
@@ -122,13 +131,11 @@ public function search(Request $request)
                     })
                     ->get();
 
-    // بحث عن الأطباء
     $doctors = Doctor::where('name', 'like', "%$query%")
                 ->orWhere('specialty', 'like', "%$query%")
                 ->get();
 
-    // بحث عن العيادات
-    $clinics = Clinic::where('name', 'like', "%$query%")->get();
+   $clinics = Clinic::where('name', 'like', "%$query%")->get();
 
     return view('user-account.my-account', compact('appointments', 'doctors', 'clinics', 'query'));
 }

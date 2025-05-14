@@ -16,11 +16,11 @@ class CreateMedicalRecordsTable extends Migration
             $table->text('diagnosis');
             $table->text('prescription')->nullable();
             $table->text('treatment')->nullable();
-            $table->timestamp('record_date')->default(DB::raw('CURRENT_TIMESTAMP')); // تاريخ السجل الطبي
-            $table->timestamp('diagnosis_date')->nullable(); // تاريخ التشخيص
-            $table->timestamp('follow_up')->nullable(); // مواعيد متابعة الحالة
+            $table->timestamp('record_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('diagnosis_date')->nullable(); 
+            $table->timestamp('follow_up')->nullable(); 
             $table->timestamps();
-            $table->string('image')->nullable(); // لحفظ صور الفحص
+            $table->string('image')->nullable(); 
 
         });
     }
