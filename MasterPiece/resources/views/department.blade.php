@@ -5,7 +5,7 @@
   <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
   <meta name="author" content="themefisher.com">
 
-  <title>Masterpice</title>
+  <title>Department</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -53,7 +53,7 @@
             <div class="col-lg-7 text-center">
                 <div class="section-title">
                     <h2>Award winning patient care</h2>
-                    <div class="divider mx-auto my-4"></div>
+                    <div class="mx-auto my-4"></div>
                     <p>Lets know moreel necessitatibus dolor asperiores illum possimus sint voluptates incidunt molestias nostrum laudantium. Maiores porro cumque quaerat.</p>
                 </div>
             </div>

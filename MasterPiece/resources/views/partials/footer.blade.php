@@ -50,7 +50,7 @@
 			<div class="col-lg-4 col-sm-6 order-lg-1 text-lg-start">
 				<div class="widget mb-3">
 					<div class="logo mb-3">
-						<img src="{{ asset('images/kjdjdj.png') }}" alt="Logo" height="50">
+						<img src="{{ asset('images/calmoram.png') }}" alt="Logo" height="50">
 					</div>
 					<p style="font-size: 15px;">
 						Calmora – We prioritize your comfort above all else. High-quality medical services in a safe and relaxing environment because your health deserves the best.

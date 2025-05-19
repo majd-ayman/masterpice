@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Clinic;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
-
+use App\Models\Review;
 class ClinicController extends Controller
 {
 
@@ -17,7 +17,9 @@ class ClinicController extends Controller
 
         $clinics = Clinic::orderBy('created_at', 'asc')->take(9)->get();
         $doctors = Doctor::with('clinic')->get();
-        return view('index', compact('clinics', 'doctors'));
+            $reviews = Review::with('user')->latest()->get();
+
+        return view('index', compact('clinics', 'doctors' ,'reviews'));
     }
 
     public function doctor()
@@ -95,4 +97,10 @@ class ClinicController extends Controller
     {
         return view('doctor-single');
     }
+
+
+
+
+
+
 }

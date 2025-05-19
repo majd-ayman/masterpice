@@ -50,7 +50,7 @@
 
 
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar pe-6 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <div class="navbar-brand mx-4 mb-3">
                     <a href="#">
@@ -117,18 +117,26 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('superAdmin.dashboard') }}"
-                            class="nav-link {{ request()->routeIs('superAdmin.dashboard') ? 'active' : '' }}">
-                            <i class="fa fa-chart-bar me-2"></i> Charts
+                        <a href="{{ route('supperadmin.chart') }}"
+                            class="nav-link {{ request()->routeIs('supperadmin.chart') ? 'active' : '' }}">
+                            <i class="fa fa-chart-bar me-2"></i>Charts
                         </a>
+
                     </li>
                     <li class="nav-item">
+
                         <a href="{{ route('superAdmin.editprofile') }}"
-                            class="nav-link {{ request()->routeIs('superAdmin.dashboard') ? 'active' : '' }}">
+                            class="nav-link {{ request()->routeIs('superAdmin.editprofile') ? 'active' : '' }}">
                             <i class="fa fa-user-edit me-2"></i> Edit My Profile
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('superAdmin.contactus') }}"
+                            class="nav-link {{ request()->routeIs('superAdmin.contactus') ? 'active' : '' }}">
+                            <i class="fa fa-user-edit me-2"></i> Contact Us
+                        </a>
+                    </li>
 
 
                     <li class="nav-item">
@@ -155,15 +163,13 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                {{-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+                </form> --}}
                 <div class="navbar-nav align-items-center ms-auto">
 
 
@@ -194,4 +200,3 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-          

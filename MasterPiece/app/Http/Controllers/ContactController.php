@@ -46,4 +46,10 @@ class ContactController extends Controller
 
         return back()->with('success', 'Your message has been sent successfully.');
     }
+      public function index()
+    {
+        $contacts = Contact::orderBy('created_at', 'desc')->get();
+
+        return view('superAdmin.contactus', compact('contacts'));
+    }
 }

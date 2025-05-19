@@ -1,7 +1,7 @@
-@include('superAdmin.ap.header')
+@include('superadmin.ap.header')
 
 <div class="container-fluid pt-4 px-4">
-    <div class="bg-white rounded-4 shadow p-4 mb-4">
+    <div class="bg-white rounded-4  p-4 mb-4">
         <h3 class="mb-0 text-center" style="color:black">Booking Charts</h3>
     </div>
 
@@ -37,7 +37,6 @@
 </div>
 
 
-@include('superAdmin.ap.footer')
 
 <!-- Chart.js Library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -126,3 +125,4 @@
         }
     });
 </script>
+@include('superadmin.ap.footer')

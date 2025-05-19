@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Book an appointment easily.">
 
-    <!-- Favicon -->
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('plugins/icofont/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/appointment.js') }}" defer></script>
-    <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
@@ -250,7 +247,7 @@
                                 const nameRegex = /^[A-Za-z\s]+$/;
 
                                 if (!nameRegex.test(nameValue)) {
-                                    nameError.textContent = "Please enter a valid English name (no Arabic letters).";
+                                    nameError.textContent = "Name must contain only English letters. No Arabic or numbers allowed.";
                                     isValid = false;
                                 } else {
                                     nameError.textContent = "";

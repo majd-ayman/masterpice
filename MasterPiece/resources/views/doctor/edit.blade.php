@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card shadow-sm rounded-3">
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header  text-white text-center">
                     <h4>Edit Profile</h4>
                 </div>
 
@@ -56,11 +56,11 @@
                             <textarea name="experience" id="experience" class="form-control">{{ old('experience', $doctor->experience) }}</textarea>
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="working_days" class="form-label">Working Days</label>
                             <input type="text" name="working_days" id="working_days" class="form-control"
                                    value="{{ old('working_days', $doctor->working_days) }}">
-                        </div>
+                        </div> --}}
 
                         <div class="mb-3">
                             <label for="expertise_area" class="form-label">Expertise Area</label>
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success px-4">Update Profile</button>
+                            <button type="submit" class="btn btn-primary px-4">Update Profile</button>
                         </div>
                     </form>
                 </div>

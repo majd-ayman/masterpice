@@ -6,7 +6,7 @@
     <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
     <meta name="author" content="themefisher.com">
 
-    <title>Masterpice</title>
+    <title>About us</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -51,7 +51,9 @@
                     <h2 class="title-color">Personal care for your healthy living</h2>
                 </div>
                 <div class="col-lg-8">
-                    <p>Personalized care for your health and well-being. We are here to provide you with the best medical services, from routine check-ups to specialized consultations, ensuring you receive comprehensive healthcare.</p>
+                    <p>Personalized care for your health and well-being. We are here to provide you with the best
+                        medical services, from routine check-ups to specialized consultations, ensuring you receive
+                        comprehensive healthcare.</p>
                     <img src="images/about/sign.png" alt="" class="img-fluid">
                 </div>
             </div>
@@ -73,7 +75,8 @@
                         <img src="images/about/about-1.jpg" alt="" class="img-fluid w-100">
                         <h4 class="mt-3">Healthcare for Kids</h4>
                         <p class="feature-desc">
-                            We offer medical services for children, including checkups, vaccinations, and treatments under pediatric supervision.
+                            We offer medical services for children, including checkups, vaccinations, and treatments
+                            under pediatric supervision.
                         </p>
                     </div>
                 </div>
@@ -82,7 +85,8 @@
                         <img src="images/about/about-2.jpg" alt="" class="img-fluid w-100">
                         <h4 class="mt-3">Body Surgery</h4>
                         <p class="feature-desc">
-                            We provide surgical procedures to enhance appearance and treat conditions, including tummy tucks and fat removal.
+                            We provide surgical procedures to enhance appearance and treat conditions, including tummy
+                            tucks and fat removal.
                         </p>
                     </div>
                 </div>
@@ -91,7 +95,8 @@
                         <img src="images/about/about-3.jpg" alt="" class="img-fluid w-100">
                         <h4 class="mt-3">Neurological Surgery</h4>
                         <p class="feature-desc">
-                            We specialize in brain, spine, and nervous system surgery, including tumor removal and nerve pain treatment.
+                            We specialize in brain, spine, and nervous system surgery, including tumor removal and nerve
+                            pain treatment.
                         </p>
                     </div>
                 </div>
@@ -100,14 +105,15 @@
                         <img src="images/about/about-4.jpg" alt="" class="img-fluid w-100">
                         <h4 class="mt-3">Gynecology</h4>
                         <p class="feature-desc">
-                            Comprehensive women’s health services, including prenatal care, fertility consultations, and menstrual disorder treatment.
+                            Comprehensive women’s health services, including prenatal care, fertility consultations, and
+                            menstrual disorder treatment.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
 
 
 
@@ -120,7 +126,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-4">
                     <h2 class="title-color">Our Doctors achievements </h2>
-                    <div class="divider mt-4 mb-5 mb-lg-0"></div>
+                    <div class="mt-4 mb-5 mb-lg-0"></div>
                 </div>
                 <div class="col-lg-8">
                     <div class="row">
@@ -169,12 +175,12 @@
                 <div class="col-lg-6">
                     <div class="section-title text-center">
                         <h2 class="mb-4">Meet Our Specialists</h2>
-                        <div class="divider mx-auto my-4"></div>
+                        <div class="mx-auto my-4"></div>
                         <p>Our team of expert doctors is here to provide you with the best medical care.</p>
                     </div>
                 </div>
             </div>
-    
+
 
 
 
@@ -182,7 +188,8 @@
                 @foreach ($doctors as $doctor)
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="team-block mb-5 mb-lg-0">
-                            <img src="{{ asset('images/team/' . $doctor->image) }}" alt="{{ $doctor->name }}" class="img-fluid w-100">
+                            <img src="{{ asset('images/team/' . $doctor->image) }}" alt="{{ $doctor->name }}"
+                                class="img-fluid w-100">
                             <div class="content">
                                 <h4 class="mt-4 mb-0">{{ $doctor->name }}</h4>
                                 <p>{{ $doctor->specialty }}</p>
@@ -192,14 +199,14 @@
                 @endforeach
             </div>
         </div>
-    </section> 
+    </section>
     @php
-    $reviews = $reviews ?? [];
-@endphp
+        $reviews = $reviews ?? [];
+    @endphp
 
-    
 
-    <section class="section testimonial">
+
+    <section class="section testimonial mb-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-6">
@@ -209,10 +216,10 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row align-items-center">
                 <div class="col-lg-6 testimonial-wrap offset-lg-6">
-                    @foreach($reviews as $review)
+                    @foreach ($reviews as $review)
                         <div class="testimonial-block">
                             <div class="client-info">
                                 <h4>{{ $review->rating >= 4 ? 'Amazing service!' : 'Thank you!' }}</h4>
@@ -226,12 +233,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- footer Start -->
     @include('partials.footer')
 
 
-    <!-- 
+    <!--
     Essential Scripts
     =====================================-->
 
@@ -251,7 +258,8 @@
     <script src="plugins/counterup/jquery.counterup.min.js"></script>
     <!-- Google Map -->
     <script src="plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap">
+    </script>
 
     <script src="js/script.js"></script>
     <script src="js/contact.js"></script>

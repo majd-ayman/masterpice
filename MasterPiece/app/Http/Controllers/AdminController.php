@@ -87,7 +87,7 @@ class AdminController extends Controller
         $appointment->status = $request->status;
         $appointment->save();  
 
-        return redirect()->route('admin.dashboard')->with('success', 'Appointment status updated successfully');
+        return redirect()->route('admin.index')->with('success', 'Appointment status updated successfully');
     }
     public function create()
     {

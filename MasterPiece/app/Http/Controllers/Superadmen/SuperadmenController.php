@@ -21,23 +21,30 @@ class SuperadmenController extends Controller
             ->take(10)
             ->get();
 
+
         return view('superAdmin.dashboard', compact('appointments'));
     }
+
+
+
     public function dashboard()
     {
-        $doctorsCount = Doctor::count();
+
+
+        
+        $availableDoctors = Doctor::count();
         $clinicsCount = Clinic::count();
-        $usersCount = User::count();
+        $totalPatients = User::count();
         $appointmentsCount = Appointment::count();
         $completedAppointments = Appointment::where('status', 'completed')->count();
         $canceledAppointments = Appointment::where('status', 'canceled')->count();
         // $reviewsCount = Review::count();
         $contactMessages = \App\Models\Contact::latest()->take(5)->get();
 
-        return view('superAdmin.charts', compact(
-            'doctorsCount',
+        return view('superAdmin.dashboard', compact(
+            'availableDoctors',
             'clinicsCount',
-            'usersCount',
+            'totalPatients',
             'appointmentsCount',
             'completedAppointments',
             'canceledAppointments',
@@ -45,6 +52,7 @@ class SuperadmenController extends Controller
             'contactMessages'
         ));
     }
+
 
     public function showProfile()
     {

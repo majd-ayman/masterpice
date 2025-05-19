@@ -26,6 +26,7 @@ use App\Http\Controllers\Superadmen\DepartmentsController;
 use App\Http\Controllers\MedicalHistoryController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +38,6 @@ use App\Http\Controllers\MedicalHistoryController;
 |
 */
 
-// راوتات الكونتورلير الي اسمه DoctorController
 Route::get('/about', [DoctorController::class, 'about'])->name('about');
 
 
@@ -139,40 +139,45 @@ Route::middleware(['auth'])->prefix('user-account')->name('user-account.')->grou
 
     // Search inside user account
     Route::get('/search', [PatientController::class, 'search'])->name('search');
-});
+
 
 // Delete profile picture
-Route::delete('/profile-picture/delete', [PatientController::class, 'deleteProfilePicture'])->name('profile-picture.delete');
 
 // Medical history creation and storage (general, outside of user account section)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/medical-history', [MedicalHistoryController::class, 'create'])->name('medical-history.create');
-    Route::post('/medical-history', [MedicalHistoryController::class, 'store'])->name('medical-history.store');
-});
+// Route::middleware(['auth'])->group(function () {
+    // Route::get('/medical-history', [MedicalHistoryController::class, 'create'])->name('medical-history.create');
+    // Route::post('/medical-history', [MedicalHistoryController::class, 'store'])->name('medical-history.store');
+// });
 
 // Appointment resource routes (index, create, store, etc.)
 Route::resource('appointments', AppointmentController::class);
 
 // Edit user appointment
-Route::get('user/appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('myappointments.edit');
 
 // Update user appointment
-Route::put('user/appointments/{id}', [AppointmentController::class, 'update'])->name('myappointments.update');
 
 // Cancel appointment
+
+
+
+
+
+});
+Route::put('user/appointments/{id}', [AppointmentController::class, 'update'])->name('myappointments.update');
+
+Route::get('user/appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('myappointments.edit');
+
+Route::get('/medical-history', [MedicalHistoryController::class, 'medicalHistoryForm'])->name('user-account.medicalHistory');
+Route::get('/my-medical-history', [MedicalHistoryController::class, 'showMyHistory'])->name('user-account.medicalHistory');
+Route::put('/medical-history/{id}', [MedicalHistoryController::class, 'update'])->name('medical-history.update');
+Route::delete('/profile-picture/delete', [PatientController::class, 'deleteProfilePicture'])->name('profile-picture.delete');
 Route::patch('/appointments/{id}/cancel', [AppointmentController::class, 'cancel'])->name('appointments.cancel');
-
-// Show "Book Now" page
-Route::get('/book-now', function () {
-    return view('user-account.book-now');
-})->name('book.now');
-
-
 
 ///////////////////////////////////////////////////////////
 
 
 Route::get('/service', [ServiceController::class, 'index'])->name('service');
+Route::post('/medical-history/store', [MedicalHistoryController::class, 'store'])->name('medical-history.store');
 
 
 
@@ -246,19 +251,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/appointments', [AdminController::class, 'store'])->name('appointments.store');
 
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('users.update');
-    Route::put('/admin/appointments/{id}', [AdminController::class, 'update'])->name('appointments.update');
+    Route::put('/admin/appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
 
     //الاحصائيات والرسومات
 
-    Route::get('/admin/chart', [StatisticsController::class, 'index'])->name('admin.chart');
 
     Route::get('/doctors', [DoctorsAdminController::class, 'index'])->name('admin.doctors');
 });
 
-// Route::prefix('admin')->middleware(['auth'])->group(function () {
-//     Route::get('/doctors', [DoctorsAdminController::class, 'index'])->name('admin.doctors');
 
-// });
 
 
 
@@ -296,6 +297,14 @@ Route::middleware(['auth', 'role:doctor'])->group(function () {
         auth()->user()->unreadNotifications->markAsRead();
         return back();
     })->name('notifications.markAsRead');
+    Route::get('/reviews', [ReviewController::class, 'doctorReviews'])->name('doctor.reviews');
+Route::get('/past-appointments', [AppointmentController::class, 'pastAppointments'])->name('doctor.pastAppointments');
+
+Route::get('/doctor/medical-history/{userId}', [MedicalHistoryController::class, 'showMedicalHistoryForDoctor'])
+    ->name('doctor.medical_history.show')
+    ->middleware('auth');  
+   Route::patch('/doctor/appointments/{appointment}/mark-completed', [DashboardController::class, 'markCompleted'])->name('doctor.appointments.markCompleted');
+
 });
 
 
@@ -323,10 +332,13 @@ Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store
 Route::middleware('role:superadmen')->prefix('superadmin')->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', [SuperadmenController::class, 'index'])->name('superAdmin.dashboard');
+    Route::get('/dashboard', [SuperadmenController::class, 'dashboard'])->name('superAdmin.dashboard');
     Route::get('/charts', [SuperadmenController::class, 'dashboard'])->name('superAdmin.charts');
     Route::get('/editmyprofile', [SuperadmenController::class, 'editmyprofile'])->name('superAdmin.editprofile');
     Route::get('/profile', [SuperAdmenController::class, 'showProfile'])->name('superAdmin.showprofile');
+    Route::get('/contactus', [ContactController::class, 'index'])->name('superAdmin.contactus');
+    Route::get('chart', [StatisticsController::class, 'index'])->name('supperadmin.chart');
+
 
 
     // Doctors

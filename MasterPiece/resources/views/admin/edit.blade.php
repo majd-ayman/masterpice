@@ -18,8 +18,8 @@
 
         <div class="mb-3">
             <label>Clinic</label>
-            <select name="clinic_id" class="form-control">
-                @foreach($clinics as $clinic)
+            <select name="clinic_id" class="form-control" disabled>
+                @foreach ($clinics as $clinic)
                     <option value="{{ $clinic->id }}" {{ $appointment->clinic_id == $clinic->id ? 'selected' : '' }}>
                         {{ $clinic->name }}
                     </option>
@@ -29,8 +29,8 @@
 
         <div class="mb-3">
             <label>Doctor</label>
-            <select name="doctor_id" class="form-control">
-                @foreach($doctors as $doctor)
+            <select name="doctor_id" class="form-control" disabled>
+                @foreach ($doctors as $doctor)
                     <option value="{{ $doctor->id }}" {{ $appointment->doctor_id == $doctor->id ? 'selected' : '' }}>
                         {{ $doctor->name }}
                     </option>
@@ -40,31 +40,63 @@
 
         <div class="mb-3">
             <label>Date</label>
-            <input type="date" name="appointment_date" class="form-control" value="{{ $appointment->appointment_date }}">
+            <input type="date" id="appointment_date" name="appointment_date" class="form-control"
+                value="{{ $appointment->appointment_date }}">
         </div>
-
         <div class="mb-3">
-            <label>Time</label>
-            <input type="time" name="appointment_time" class="form-control" value="{{ $appointment->appointment_time }}">
-        </div>
-
-        <div class="mb-3">
-            <label>Status</label>
-            <select name="status" class="form-control">
-                <option value="pending" {{ $appointment->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="completed" {{ $appointment->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                <option value="canceled" {{ $appointment->status == 'canceled' ? 'selected' : '' }}>Canceled</option>
+            <label for="appointment_time">الوقت</label>
+            <select name="appointment_time" id="time_slots" class="form-control" required>
+                <option value="{{ $appointment->appointment_time }}">{{ $appointment->appointment_time }}</option>
             </select>
         </div>
+
+
+
 
         <div class="mb-3">
             <label>Notes</label>
             <textarea name="notes" class="form-control">{{ $appointment->notes }}</textarea>
         </div>
 
-        <button type="submit" class="btn btn-success">Update Appointment</button>
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Back</a>
+        <button type="submit" class="btn btn-primary">Update Appointment</button>
     </form>
 </div>
 
+<script>
+    console.log(document.getElementById('appointment_date'));
+    document.getElementById('appointment_date').addEventListener('change', function() {
+        fetchAvailableTimes();
+    });
+
+    function fetchAvailableTimes() {
+
+        var doctorId = {{ $doctor->id }};
+        var appointmentDate = document.getElementById('appointment_date').value;
+
+        if (doctorId && appointmentDate) {
+            fetch(`/get-available-times/${doctorId}/${appointmentDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    var timeSlotsDropdown = document.getElementById('time_slots');
+                    timeSlotsDropdown.innerHTML = '<option value="">Select Time</option>';
+
+                    if (data.length > 0) {
+                        data.forEach(function(time) {
+                            var option = document.createElement('option');
+                            option.value = time;
+                            option.textContent = time;
+                            timeSlotsDropdown.appendChild(option);
+                        });
+                    } else {
+                        timeSlotsDropdown.innerHTML = '<option value="">No available times</option>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching available times:', error);
+                    alert('An error occurred while fetching available times');
+                });
+        }
+    }
+</script>
 @include('admin.app.footer')

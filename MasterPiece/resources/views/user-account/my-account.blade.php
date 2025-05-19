@@ -45,7 +45,7 @@
         <!-- Spinner End -->
 
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar pe-6 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <div class="navbar-brand mx-4 mb-3">
                     <a href="#">
@@ -83,33 +83,31 @@
                         color: red;
                     }
                 </style>
-<ul class="navbar-nav">
-    <li>
-        <a href="{{ route('user-account.my-account') }}"
-           class="nav-item nav-link {{ request()->routeIs('user-account.my-account') ? 'active' : '' }}">
-            <i class="fa fa-user-circle me-2"></i> My Account
-        </a>
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="{{ route('user-account.my-account') }}"
+                            class="nav-item nav-link {{ request()->routeIs('user-account.my-account') ? 'active' : '' }}">
+                            <i class="fa fa-user-circle me-2"></i> My Account
+                        </a>
 
-        <a href="{{ route('book.now') }}"
-           class="nav-item nav-link {{ request()->routeIs('book.now') ? 'active' : '' }}">
-            <i class="fa fa-calendar-plus me-2"></i> Book Now
-        </a>
 
-        <a href="{{ route('user-account.editProfile') }}"
-           class="nav-item nav-link {{ request()->routeIs('user-account.editProfile') ? 'active' : '' }}">
-            <i class="fa fa-edit me-2"></i> Edit Profile
-        </a>
 
-        <a href="{{ route('user-account.medicalHistory') }}"
-           class="nav-item nav-link {{ request()->routeIs('user-account.medicalHistory') ? 'active' : '' }}">
-            <i class="fa fa-file-medical me-2"></i> Medical Records
-        </a>
+                        <a href="{{ route('user-account.editProfile') }}"
+                            class="nav-item nav-link {{ request()->routeIs('user-account.editProfile') ? 'active' : '' }}">
+                            <i class="fa fa-edit me-2"></i> Edit Profile
+                        </a>
 
-        <a href="{{ route('home') }}" class="nav-item nav-link">
-            <i class="fa fa-sign-out-alt me-2"></i> Back
-        </a>
-    </li>
-</ul>
+                        <a href="{{ route('user-account.medicalHistory') }}"
+                            class="nav-item nav-link {{ request()->routeIs('user-account.medicalHistory') ? 'active' : '' }}">
+                            <i class="fa fa-file-medical me-2"></i>Medical Histories
+
+                        </a>
+
+                        <a href="{{ route('home') }}" class="nav-item nav-link">
+                            <i class="fa fa-sign-out-alt me-2"></i> Back
+                        </a>
+                    </li>
+                </ul>
 
 
             </nav>
@@ -125,10 +123,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
 
-                <form class="d-none d-md-flex ms-4" action="{{ route('user-account.search') }}" method="GET">
-                    <input class="form-control border-0" type="search" name="query"
-                        placeholder="Search appointments, doctors, clinics...">
-                </form>
+
 
 
                 <div class="navbar-nav align-items-center ms-auto">
@@ -276,18 +271,26 @@
                                                 <td>{{ ucfirst($appointment->status) }}</td>
 
                                                 <td>
-                                                    <form action="{{ route('appointments.cancel', $appointment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this appointment?')">
+
+                                                    <form id="cancel-form-{{ $appointment->id }}"
+                                                        action="{{ route('appointments.cancel', $appointment->id) }}"
+                                                        method="POST">
+
                                                         @csrf
                                                         @method('PATCH')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+
+                                                        <button type="button"
+                                                            onclick="confirmCancel({{ $appointment->id }})"
+                                                            class="btn btn-danger btn-sm">Cancel</button>
+{{-- 
                                                         <a href="{{ route('myappointments.edit', $appointment->id) }}"
-                                                            class="btn btn-primary btn-sm" style="display:inline-block;">
+                                                            class="btn btn-primary btn-sm"
+                                                            style="display:inline-block;">
                                                             Edit
-                                                        </a>
-                                               
+                                                        </a> --}}
+
                                                     </form>
-                                                    
-                                                    
+
 
 
                                                 </td>
@@ -302,6 +305,32 @@
                         @endif
                     </div>
                 </div>
+                <h4 class="mb-4">Your Appointments and Medical Records</h4>
+
+                @forelse($appointments as $appointment)
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            Appointment with Dr. {{ $appointment->doctor->name ?? 'Unknown Doctor' }}
+                            <span
+                                class="float-end">{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Status:</strong> {{ ucfirst($appointment->status) }}</p>
+
+                            @if ($appointment->medicalRecord)
+                                <div class="medical-record">
+                                    <p><strong>Diagnosis:</strong> {{ $appointment->medicalRecord->diagnosis }}</p>
+                                    <p><strong>Treatment:</strong> {{ $appointment->medicalRecord->treatment }}</p>
+                                    <p><strong>Notes:</strong> {{ $appointment->medicalRecord->notes }}</p>
+                                </div>
+                            @else
+                                <p class="text-muted fst-italic">No medical record available for this appointment.</p>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <p>No appointments found.</p>
+                @endforelse
 
                 <!-- Medical Record -->
                 @if ($medicalRecord)
@@ -316,14 +345,14 @@
                             <p><strong>Record Date:</strong>
                                 {{ \Carbon\Carbon::parse($medicalRecord->record_date)->format('Y-m-d') }}</p>
                             <p><strong>Follow Up:</strong> {{ $medicalRecord->follow_up }}</p>
-                            @if($medicalRecord->image)
-                            
-                            <img src="{{ asset('images/' . $medicalRecord->image) }}" alt="Medical Record Image" style="max-width: 300px;">
-                        @else
-                            <p>No image available.</p>
-                        @endif
+                            @if ($medicalRecord->image)
+                                <img src="{{ asset('images/' . $medicalRecord->image) }}" alt="Medical Record Image"
+                                    style="max-width: 300px;">
+                            @else
+                                <p>No image available.</p>
+                            @endif
 
-                    
+
 
                             <p><strong>Last Updated:</strong> {{ $medicalRecord->updated_at->format('Y-m-d') }}</p>
                         </div>
@@ -342,10 +371,11 @@
     @include('user-account.appp.footer')
 
     <!-- SweetAlert Success Message -->
-    @if (session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (session('success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
@@ -353,8 +383,27 @@
                 showConfirmButton: false,
                 timer: 2000
             });
-        </script>
-    @endif
+        @endif
+
+
+        function confirmCancel(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to undo after canceling the appointment!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, cancel',
+                cancelButtonText: 'Undo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`cancel-form-${id}`).submit();
+                }
+            });
+        }
+    </script>
+
 
 </body>
 

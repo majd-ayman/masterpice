@@ -65,10 +65,7 @@
                         <i class="fa fa-user-circle me-2"></i> My Account
                     </a>
             
-                    <a href="{{ route('book.now') }}"
-                       class="nav-item nav-link {{ request()->routeIs('book.now') ? 'active' : '' }}">
-                        <i class="fa fa-calendar-plus me-2"></i> Book Now
-                    </a>
+                  
             
                     <a href="{{ route('user-account.editProfile') }}"
                        class="nav-item nav-link {{ request()->routeIs('user-account.editProfile') ? 'active' : '' }}">
@@ -77,7 +74,8 @@
             
                     <a href="{{ route('user-account.medicalHistory') }}"
                        class="nav-item nav-link {{ request()->routeIs('user-account.medicalHistory') ? 'active' : '' }}">
-                        <i class="fa fa-file-medical me-2"></i> Medical Records
+                        <i class="fa fa-file-medical me-2"></i> Medical Histories
+
                     </a>
             
                     <a href="{{ route('home') }}" class="nav-item nav-link">
@@ -235,7 +233,6 @@
     <script>
         function deleteProfilePicture() {
             if (confirm("Are you sure you want to delete your profile picture?")) {
-                // Trigger form submit to delete the picture
                 document.querySelector('form').submit();
             }
         }

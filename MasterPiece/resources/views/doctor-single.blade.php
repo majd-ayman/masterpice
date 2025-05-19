@@ -6,7 +6,7 @@
     <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
     <meta name="author" content="themefisher.com">
 
-    <title>Masterpiece</title>
+    <title>Doctor</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
 
@@ -89,7 +89,7 @@
                         <div class="info-block mt-4">
                             <h4 class="mb-0">{{ $doctor->name }}</h4>
                             <p>{{ $doctor->specialty }}</p>
-                         
+
                         </div>
                     </div>
                 </div>
@@ -127,11 +127,11 @@
                         <p>{{ $doctor->educational_qualifications_description1 }}</p>
                     </div>
 
-                    
+
                 </div>
 
                 <div class="col-lg-6">
-                 
+
 
                     <div class="edu-block">
                         <span class="h6 text-muted"> {{ $doctor->educational_qualifications }}</span>
@@ -153,16 +153,16 @@
                     <div class="divider my-4"></div>
                     <p>{{ $doctor->skills }}</p>
                 </div>
-<div class="col-lg-4">
-    <div class="skill-list">
-        <h5 class="mb-4">Expertise area</h5>
-        <ul class="list-unstyled department-service">
-            @foreach(explode(',', $doctor->expertise_area) as $expertise)
-                <li><i class="icofont-check mr-2"></i>{{ trim($expertise) }}</li>
-            @endforeach
-        </ul>
-    </div>
-</div>
+                <div class="col-lg-4">
+                    <div class="skill-list">
+                        <h5 class="mb-4">Expertise area</h5>
+                        <ul class="list-unstyled department-service">
+                            @foreach (explode(',', $doctor->expertise_area) as $expertise)
+                                <li><i class="icofont-check mr-2"></i>{{ trim($expertise) }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
 
 
                 <div class="col-lg-4">
@@ -170,22 +170,20 @@
                         <h5 class="mb-4">Working Hours</h5>
                         <ul class="list-unstyled lh-35">
                             <li class="d-flex justify-content-between align-items-center">
-                                <span>Monday - Friday</span>
-                                <span>{{ $doctor->available_from }} - {{ $doctor->available_to }}</span>
+                                <span>Sunday - Thursday</span>
+                                <span>8:00 AM - 1:00 PM</span>
                             </li>
                             <li class="d-flex justify-content-between align-items-center">
-                                <span>Saturday</span>
-                                <span>{{ $doctor->available_from }} - {{ $doctor->available_to }}</span>
+                                <span>Friday - Saturday</span>
+                                <span>Closed </span>
                             </li>
-                            <li class="d-flex justify-content-between align-items-center">
-                                <span>Sunday</span>
-                                <span>Closed</span>
-                            </li>
+
                         </ul>
 
+
                         <div class="sidebar-contatct-info mt-4">
-                            <p class="mb-0">Need Urgent Help?</p>
-                            <h3 class="text-color-2">{{ $doctor->phone }}</h3>
+                            <p class="mb-0">Need Help?</p>
+                            <h3 class="text-color-2">0780467339</h3>
                         </div>
                     </div>
                 </div>
@@ -198,79 +196,80 @@
 
     {{-- ////////////////////قسم  التعليقات ///////////////// --}}
     <section class="section doctor-reviews">
-      <div class="container">
-          <!-- عرض التعليقات -->
-          <div class="col-lg-12 mb-5">
-              <h4 class="mt-5 text-md">Reviews:</h4>
-              @forelse ($doctor->reviews as $review)
-                  <div class="review-box">
-                      {{-- <p><strong>{{ $review->user->name }}</strong></p> --}}
-                      <p>{{ $review->comment }}</p>
-                      <div class="review-stars">
-                          @for ($i = 1; $i <= 5; $i++)
-                              @if ($i <= $review->rating)
-                                  <i class="fas fa-star"></i>
-                              @else
-                                  <i class="far fa-star"></i>
-                              @endif
-                          @endfor
-                      </div>
-                      <small class="text-muted">{{ $review->created_at->format('Y-m-d') }}</small>
-                  </div>
-              @empty
-                  <p>No reviews yet.</p>
-              @endforelse
-  
+        <div class="container">
+            <!-- عرض التعليقات -->
+            <div class="col-lg-12 mb-5">
+                <h4 class="mt-5 text-md">Reviews:</h4>
+                @forelse ($doctor->reviews as $review)
+                    <div class="review-box">
+                        {{-- <p><strong>{{ $review->user->name }}</strong></p> --}}
+                        <p>{{ $review->comment }}</p>
+                        <div class="review-stars">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $review->rating)
+                                    <i class="fas fa-star"></i>
+                                @else
+                                    <i class="far fa-star"></i>
+                                @endif
+                            @endfor
+                        </div>
+                        <small class="text-muted">{{ $review->created_at->format('Y-m-d') }}</small>
+                    </div>
+                @empty
+                    <p>No reviews yet.</p>
+                @endforelse
+
                 <!-- قسم إضافة التعليقات -->
-                @if(auth()->check() && $appointment && $appointment->user_id == auth()->id() && $appointment->status == 'completed') 
+                @if (auth()->check() && $appointment && $appointment->user_id == auth()->id() && $appointment->status == 'completed')
                     <div class="col-lg-12">
                         <form action="{{ route('reviews.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
                             <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
-    
+
                             <div class="form-group">
                                 <label for="comment">Comment:</label>
                                 <textarea name="comment" class="form-control" required></textarea>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="rating">Rating:</label>
                                 <div class="star-rating">
                                     @for ($i = 5; $i >= 1; $i--)
-                                        <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}">
+                                        <input type="radio" id="star{{ $i }}" name="rating"
+                                            value="{{ $i }}">
                                         <label for="star{{ $i }}"><i class="fas fa-star"></i></label>
                                     @endfor
                                 </div>
                             </div>
-    
+
                             <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
                         </form>
                     </div>
                 @else
                     <p>You can only leave a review after completing your appointment.</p>
                 @endif
-          </div>
-      </div>
-  </section>
+            </div>
+        </div>
+    </section>
 
-  @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
 
 
     <script>
         document.getElementById('comment-form').addEventListener('submit', function(e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             let name = document.getElementById('name').value.trim();
             let email = document.getElementById('mail').value.trim();
@@ -306,7 +305,7 @@
                 return;
             }
 
-            this.submit(); 
+            this.submit();
         });
     </script>
 

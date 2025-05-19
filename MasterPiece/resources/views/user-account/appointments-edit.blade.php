@@ -28,6 +28,10 @@
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+
+
+
     <style>
         .nav-link {
             color: black;
@@ -42,21 +46,84 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h2 class="mb-4">Edit Appointment</h2>
 
-        @if (session('error'))
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'خطأ',
-                    text: '{{ session('error') }}'
-                });
-            </script>
-        @endif
+    <div class="sidebar pe-4 pb-3">
+        <nav class="navbar bg-light navbar-light">
+            <div class="navbar-brand mx-4 mb-3">
+                <a href="#">
+                    <img src="{{ asset('images/calmoram.png') }}" alt="Site Logo" style="height: 50px;">
+                </a>
+            </div>
 
+            @php $user = Auth::user(); @endphp
+
+            <div class="d-flex align-items-center ms-4 mb-4">
+                <div class="position-relative">
+                    @php
+                        $user = Auth::user();
+                    @endphp
+
+                    <img class="rounded-circle"
+                        src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                        alt="User" style="width: 40px; height: 40px;">
+
+                    <div
+                        class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <h6 class="mb-0">{{ $user ? $user->name : 'Guest' }}</h6>
+                </div>
+            </div>
+
+            <ul class="navbar-nav">
+                <li>
+                    <a href="{{ route('user-account.my-account') }}"
+                       class="nav-item nav-link {{ request()->routeIs('user-account.my-account') ? 'active' : '' }}">
+                        <i class="fa fa-user-circle me-2"></i> My Account
+                    </a>
+            
+                  
+            
+                    <a href="{{ route('user-account.editProfile') }}"
+                       class="nav-item nav-link {{ request()->routeIs('user-account.editProfile') ? 'active' : '' }}">
+                        <i class="fa fa-edit me-2"></i> Edit Profile
+                    </a>
+            
+                    <a href="{{ route('user-account.medicalHistory') }}"
+                       class="nav-item nav-link {{ request()->routeIs('user-account.medicalHistory') ? 'active' : '' }}">
+                        <i class="fa fa-file-medical me-2"></i> Medical Histories
+
+                    </a>
+            
+                    <a href="{{ route('home') }}" class="nav-item nav-link">
+                        <i class="fa fa-sign-out-alt me-2"></i> Back
+                    </a>
+                </li>
+            </ul>
+            
+        </nav>
+    </div>
+
+
+
+
+    <div class="content">
+ <div class="container mt-5">
+            <div class="text-center mb-4">
+                <h2 style="font-weight: bold; padding:30px">Edit Appointment</h2>
+            </div>
+
+@if (session('error')) 
+<script> 
+Swal.fire({ 
+icon: 'error', 
+title: 'Error', 
+text: '{{ session('error') }}' 
+}); 
+</script> 
+@endif
         <form id="appointmentForm" action="{{ route('myappointments.update', $appointment->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -98,6 +165,7 @@
 
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
+
     </div>
 
     <script>

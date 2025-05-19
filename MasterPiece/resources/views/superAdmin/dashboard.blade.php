@@ -7,16 +7,7 @@
 <!-- Dashboard Content -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4 justify-content-center">
-        <!-- Today's Appointments -->
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-3">
-                <i class="fa fa-calendar-check fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today's Appointments</p>
-                    {{-- <h6 class="mb-0">{{ $appointmentsToday }}</h6> --}}
-                </div>
-            </div>
-        </div>
+     
 
         <!-- Available Doctors -->
         <div class="col-sm-6 col-xl-3">
@@ -24,7 +15,7 @@
                 <i class="fa fa-user-md fa-3x text-info"></i>
                 <div class="ms-3">
                     <p class="mb-2">Available Doctors</p>
-                    {{-- <h6 class="mb-0">{{ $availableDoctors }}</h6> --}}
+                    <h6 class="mb-0">{{ $availableDoctors }}</h6>
                 </div>
             </div>
         </div>
@@ -35,7 +26,7 @@
                 <i class="fa fa-clinic-medical fa-3x text-info"></i>
                 <div class="ms-3">
                     <p class="mb-2">Total Clinics</p>
-                    {{-- <h6 class="mb-0">{{ $clinicsCount }}</h6> --}}
+                    <h6 class="mb-0">{{ $clinicsCount }}</h6>
                 </div>
             </div>
         </div>
@@ -46,7 +37,7 @@
                 <i class="fa fa-users fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Total Patients</p>
-                    {{-- <h6 class="mb-0">{{ $totalPatients }}</h6> --}}
+                    <h6 class="mb-0">{{ $totalPatients }}</h6>
                 </div>
             </div>
         </div>

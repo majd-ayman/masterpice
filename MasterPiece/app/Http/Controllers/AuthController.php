@@ -18,27 +18,26 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|string|min:8'
         ]);
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user(); 
+            $user = Auth::user();
 
             if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');   
-    
+                return redirect()->route('admin.dashboard');
             } elseif ($user->role === 'doctor') {
                 return redirect()->route('doctor.dashboard');
             } elseif ($user->role === 'superadmen') {
-                return redirect()->route('superAdmin.dashboard'); 
+                return redirect()->route('superAdmin.dashboard');
             } else {
-                return redirect()->route('user-account.my-account'); 
+                return redirect()->route('user-account.my-account');
             }
         }
 
-        
 
-        return back()->with('error', 'Invalid credentials.');
+
+        return back()->with('error', 'Email or password incorrect');
     }
 
     public function showRegisterForm()
@@ -53,9 +52,9 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'phone' => 'required|regex:/^[0-9]{10}$/',
-        
+
             'gender' => 'required|in:male,female',
-            'address' => 'required|string|max:255', 
+            'address' => 'required|string|max:255',
             'age' => 'required|integer|min:1|max:120',
         ]);
 
@@ -65,7 +64,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'gender' => $request->gender,
-            'address' => $request->address, 
+            'address' => $request->address,
             'age' => $request->age,
         ]);
 

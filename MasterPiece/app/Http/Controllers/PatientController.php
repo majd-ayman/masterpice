@@ -120,25 +120,34 @@ public function deleteProfilePicture()
 
 
 
-public function search(Request $request)
+
+public function myAccount()
 {
-    $query = $request->input('query');
+    $user = Auth::user();
+    $appointments = Appointment::with(['doctor', 'medicalRecord'])
+        ->where('user_id', $user->id)
+        ->orderBy('appointment_date', 'desc')
+        ->get();
 
-    $appointments = Appointment::where('user_id', auth()->id())
-                    ->where(function($q) use ($query) {
-                        $q->where('appointment_date', 'like', "%$query%")
-                          ->orWhere('status', 'like', "%$query%");
-                    })
-                    ->get();
-
-    $doctors = Doctor::where('name', 'like', "%$query%")
-                ->orWhere('specialty', 'like', "%$query%")
-                ->get();
-
-   $clinics = Clinic::where('name', 'like', "%$query%")->get();
-
-    return view('user-account.my-account', compact('appointments', 'doctors', 'clinics', 'query'));
+    return view('user-account.my-account', compact('user', 'appointments'));
 }
+
+
+
+
+
+
+public function showMyHistory()
+{
+    $user = auth()->user();
+    $medicalHistory = $user->medicalHistory()->latest()->first(); // آخر سجل طبي مسجل
+
+    return view('user.medical_history_show', compact('medicalHistory'));
+}
+
+
+
+
 }
 
 

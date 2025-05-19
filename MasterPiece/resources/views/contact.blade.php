@@ -6,7 +6,7 @@
     <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
     <meta name="author" content="themefisher.com">
 
-    <title>Masterpice</title>
+    <title>Contact</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -51,8 +51,9 @@
                     <div class="contact-block mb-4 mb-lg-0">
                         <i class="icofont-live-support"></i>
                         <h5>Call Us</h5>
-                        <a href="https://wa.me/962770467339?text=Hello%20Majd%2C%20I%20would%20like%20to%20ask%20about..." target="_blank" style="text-decoration: none; color: inherit;">
-                            +962 770 467 339
+                        <a href="https://wa.me/962770467339?text=Hello%20Majd%2C%20I%20would%20like%20to%20ask%20about..."
+                            target="_blank" style="text-decoration: none; color: inherit;">
+                            0780467339
                         </a>
                     </div>
                 </div>
@@ -88,6 +89,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
+
                     <form id="contact-form" class="contact__form" method="POST" action="{{ route('contact.store') }}">
                         @csrf
                         <div class="row">
@@ -97,6 +99,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <!-- Name Field -->
                             <div class="col-lg-6">
@@ -136,23 +139,77 @@
                         </div>
 
                         <!-- Message Field -->
+                        <!-- Message Field -->
                         <div class="form-group-2 mb-4">
                             <label for="message">Your Message</label>
-                            <textarea name="message" id="message" class="form-control" rows="8" placeholder="Your Message" required oninput="countWords()"></textarea>
-                            <small id="wordCount">Words left: 50</small>
+                            <textarea name="message" id="message" class="form-control" rows="8" placeholder="Your Message" required></textarea>
                         </div>
+
+
                         <div class="text-center">
                             <input class="btn btn-main btn-round-full" name="submit" type="submit"
                                 value="Send Message">
                         </div>
                     </form>
+
+                    <!-- Validation Script -->
+                    <script>
+                        document.getElementById('contact-form').addEventListener('submit', function(e) {
+                            let isValid = true;
+
+                            // Remove old error messages
+                            document.querySelectorAll('.error-msg').forEach(el => el.remove());
+
+                            // Name validation
+                            const name = document.getElementById('name');
+                            if (!/^[A-Za-z\s]+$/.test(name.value.trim())) {
+                                showError(name, "Name must contain only letters and spaces.");
+                                isValid = false;
+                            }
+
+                            // Subject validation (English only)
+                            const subject = document.getElementById('subject');
+                            if (!/^[A-Za-z\s]+$/.test(subject.value.trim())) {
+                                showError(subject, "Subject must be in English letters only.");
+                                isValid = false;
+                            }
+
+                            // Phone validation (Jordanian number)
+                            const phone = document.getElementById('phone');
+                            if (!/^(079|078|077)[0-9]{7}$/.test(phone.value.trim())) {
+                                showError(phone, "Phone must be a valid Jordanian number starting with 079/078/077.");
+                                isValid = false;
+                            }
+
+                            // Message validation (English only)
+                            const message = document.getElementById('message');
+                            if (!/^[A-Za-z\s.,!?'"()]+$/.test(message.value.trim())) {
+                                showError(message, "Message must be in English letters only.");
+                                isValid = false;
+                            }
+
+                            if (!isValid) {
+                                e.preventDefault(); // Prevent form submission
+                            }
+                        });
+
+                        function showError(inputElement, message) {
+                            const error = document.createElement('small');
+                            error.classList.add('error-msg');
+                            error.style.color = 'red';
+                            error.textContent = message;
+                            inputElement.parentNode.appendChild(error);
+                        }
+                    </script>
+
+
                 </div>
             </div>
         </div>
     </section>
 
     {{-- googlemap --}}
-    <div class="google-map" style="height: 400px;">
+    <div class="google-map" style="height: 400px; margin-bottom: 60px;">
         <iframe id="map" width="100%" height="100%" frameborder="0"
             style="border:0; width: 100%; height: 100%;" allowfullscreen="" aria-hidden="false" tabindex="0"
             src="https://www.google.com/maps/embed/v1/place?q=University+Street%2C+Jordan%2C+Amman&key=AIzaSyBCW1JPCuF0HxGWRGYi1EklXTsOcVk0udU">
@@ -173,52 +230,25 @@
     <script src="plugins/shuffle/shuffle.min.js"></script>
     <script src="plugins/counterup/jquery.counterup.min.js"></script>
     <script src="plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap">
+    </script>
 
     <script src="js/script.js"></script>
 
     @if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: '{{ session('success') }}',
-            confirmButtonText: 'Ok'
-        });
-    </script>
-    <script>
-        function countWords() {
-            let message = document.getElementById('message').value;
-            let wordCount = message.trim().split(/\s+/).length;
-            if (message.trim() === "") {
-                wordCount = 0;
-            }
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'Ok'
+            });
+        </script>
 
-            const maxWords = 50;
 
-            let remainingWords = maxWords - wordCount;
 
-            if (wordCount > maxWords) {
-                message = message.trim().split(/\s+/).slice(0, maxWords).join(" ");
-                document.getElementById('message').value = message;
-                remainingWords = 0; 
-            }
 
-            document.getElementById('wordCount').textContent = `Words left: ${remainingWords}`;
 
-            if (wordCount >= maxWords) {
-                document.getElementById('message').setAttribute("maxlength", "9999"); 
-                document.getElementById('message').disabled = true;
-                setTimeout(() => {
-                    alert("You have reached the maximum word limit of 50 words.");
-                }, 100);
-            } else {
-                document.getElementById('message').disabled = false; 
-            }
-        }
-
-        document.getElementById('message').addEventListener('input', countWords);
-    </script>
     @endif
 </body>
 

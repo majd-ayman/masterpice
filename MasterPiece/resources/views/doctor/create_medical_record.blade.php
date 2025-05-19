@@ -1,7 +1,4 @@
-
-
-
-
+@include('doctor.apps.header')
 
 <div class="container mt-5">
     <h3>Add Medical Record for {{ $appointment->user->name ?? 'Patient' }}</h3>
@@ -43,12 +40,13 @@
             <input type="date" name="follow_up" class="form-control">
         </div>
 
-        <div class="form-group">
+        <div class="form-group mt-4">
             <label for="image">Attach Image (Optional)</label>
             <input type="file" name="image" class="form-control-file">
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Save Record</button>
+        <button type="submit" class="btn btn-primary mt-3 mp-4">Save Record</button>
         <a href="{{ route('doctor.dashboard') }}" class="btn btn-secondary mt-3">Cancel</a>
     </form>
 </div>
+@include('doctor.apps.footer')

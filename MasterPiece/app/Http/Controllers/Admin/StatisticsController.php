@@ -62,7 +62,7 @@ class StatisticsController extends Controller
 
     $dayCounts = $appointmentsByDayOfWeek->pluck('count');
 
-    return view('admin.chart', [
+    return view('superadmin.chart', [
         'dates' => $dates,
         'counts' => $counts,
         'clinicNames' => $clinicNames,
@@ -70,7 +70,8 @@ class StatisticsController extends Controller
         'days' => $days,
         'dayCounts' => $dayCounts, 
     ]);
+
+
 }
 
-    
 }

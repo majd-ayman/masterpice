@@ -1,6 +1,6 @@
 
             <!-- Footer Start -->
-            <div class="custom-footer-container">
+            {{-- <div class="custom-footer-container">
                 <div class="custom-footer-content">
                     <div class="custom-footer-row">
                         <div class="custom-footer-col left">
@@ -11,7 +11,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             
             <!-- Footer End -->
 

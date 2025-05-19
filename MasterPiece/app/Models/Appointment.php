@@ -43,5 +43,9 @@ public function medicalHistories()
 {
     return $this->hasMany(MedicalHistory::class);
 }
+public function medicalRecord()
+{
+    return $this->hasOne(MedicalRecord::class);
+}
 
 }

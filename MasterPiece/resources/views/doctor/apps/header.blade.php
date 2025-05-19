@@ -47,7 +47,7 @@
 
 
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar pe-6 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <div class="navbar-brand mx-4 mb-3">
                     <a href="#">
@@ -63,8 +63,8 @@
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle"
-                        src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
-                        alt="Doctor" style="width: 40px; height: 40px;">
+                            src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
+                            alt="Doctor" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -85,16 +85,30 @@
                 </style>
 
 
-<ul class="navbar-nav">
-    <li>
-        <a href="{{ route('doctor.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('doctor.dashboard') ? 'active' : '' }}">
-            <i class="fa fa-tachometer-alt me-2"></i> Dashboard
-        </a>
-        <a href="{{ route('doctor.edit.info') }}" class="nav-item nav-link {{ request()->routeIs('doctor.edit.info') ? 'active' : '' }}">
-            <i class="fa fa-edit me-2"></i> Edit Profile
-        </a>
-    </li>
-</ul>
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="{{ route('doctor.dashboard') }}"
+                            class="nav-item nav-link {{ request()->routeIs('doctor.dashboard') ? 'active' : '' }}">
+                            <i class="fa fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                        <a href="{{ route('doctor.edit.info') }}"
+                            class="nav-item nav-link {{ request()->routeIs('doctor.edit.info') ? 'active' : '' }}">
+                            <i class="fa fa-edit me-2"></i> Edit Profile
+                        </a>
+                        </a>
+                        <a href="{{ route('doctor.reviews') }}"
+                            class="nav-item nav-link {{ request()->routeIs('doctor.reviews') ? 'active' : '' }}">
+                            <i class="fa fa-star me-2"></i> Reviews
+                        </a>
+                        <a href="{{ route('doctor.pastAppointments') }}"
+                            class="nav-item nav-link {{ request()->routeIs('doctor.pastAppointments') ? 'active' : '' }}">
+                            <i class="fa fa-calendar-times me-2"></i> Past Appointments
+                        </a>
+
+
+
+                    </li>
+                </ul>
 
 
 
@@ -110,15 +124,11 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+               
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+
                 <div class="navbar-nav align-items-center ms-auto">
 
 
@@ -140,23 +150,31 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"
                             style="max-height: 300px; overflow-y: auto;">
 
+
+
+
+
                             @forelse(auth()->user()->notifications->take(5) as $notification)
-                                <a href="{{ url('/doctor/appointments') }}" class="dropdown-item">
+                                <div class="dropdown-item">
                                     <h6 class="fw-normal mb-0">{{ $notification->data['title'] ?? 'New Notification' }}
                                     </h6>
                                     <small>{{ $notification->created_at->diffForHumans() }}</small>
-                                </a>
+                                </div>
                                 <hr class="dropdown-divider">
                             @empty
-                                <a href="#" class="dropdown-item text-center">No Notifications</a>
+                                <div class="dropdown-item text-center">No Notifications</div>
                             @endforelse
+
+
+
+
                             <form action="{{ route('notifications.markAsRead') }}" method="POST" class="text-center">
                                 @csrf
                                 <button type="submit" class="dropdown-item text-primary border-0 bg-transparent w-100">
                                     Mark all as read
                                 </button>
                             </form>
-                            
+
                         </div>
                     </div>
 
@@ -166,13 +184,7 @@
 
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle"
-
-
-
-                            src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/2.jpg') }}"
-
-
-
+                                src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/user.jpg') }}"
                                 alt="Doctor" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ $doctor ? $doctor->name : 'Guest' }}</span>
                         </a>

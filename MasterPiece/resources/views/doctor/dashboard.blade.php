@@ -40,9 +40,6 @@
         </div>
     </div>
 
-
-
-
     <!-- Today's Appointments -->
     <div class="row mb-4 mt-5">
         <div class="col-md-11">
@@ -50,18 +47,12 @@
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Patient</th>
+                        <th>Patient Name</th>
                         <th>Time</th>
                         <th>Status</th>
                         <th>Clinic</th>
-                        <th>Medical Histories
-                            {{-- <a href="{{ route('doctor.medical_history.show', $history->user_id) }}" class="btn btn-primary mt-2">
-                                عرض السجل الكامل
-                            </a> --}}
+                        <th>Medical Histories</th>
                         <th>Actions</th>
-
-                        </th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -69,16 +60,32 @@
                         <tr>
                             <td>{{ $appointment->user->name ?? 'N/A' }}</td>
                             <td>{{ $appointment->appointment_time }}</td>
-                            <td>{{ $appointment->status }}</td>
-                            <td>{{ $appointment->clinic->name }}</td>
+    <td>
+                                @if ($appointment->status === 'scheduled')
+                                    <form action="{{ route('doctor.appointments.markCompleted', $appointment->id) }}"
+                                        method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-sm btn-success">Mark as Completed</button>
+                                    </form>
+                                @elseif ($appointment->status === 'completed')
+                                    <span class="badge bg-success">Completed</span>
+                                @elseif ($appointment->status === 'canceled')
+                                    <span class="badge bg-danger">Canceled</span>
+                                @else
+                                    <span class="badge bg-secondary">{{ ucfirst($appointment->status) }}</span>
+                                @endif
+                            </td>                            <td>{{ $appointment->clinic->name ?? 'N/A' }}</td>
                             <td>
-                                @if ($appointment->status === 'completed' && $appointment->user->medicalHistory)
+                                @if ($appointment->user && $appointment->user->medicalHistories()->exists())
                                     <a href="{{ route('doctor.medical_history.show', $appointment->user->id) }}"
-                                        class="btn btn-sm btn-info">
-                                        View log </a>
+                                        class="btn btn-sm btn-primary">
+                                        View Medical Histories
+                                    </a>
                                 @else
                                     <span class="text-muted">No record</span>
                                 @endif
+
                             </td>
                             <td>
                                 <a href="{{ route('doctor.medical-records.create', $appointment->id) }}"
@@ -91,10 +98,8 @@
                 </tbody>
             </table>
         </div>
-
-
-
     </div>
+
     <!-- Upcoming Appointments -->
     <div class="col-md-11 mt-5">
         <h4>Upcoming Appointments</h4>
@@ -105,8 +110,6 @@
                     <th>Date</th>
                     <th>Time</th>
                     <th>Status</th>
-
-
                 </tr>
             </thead>
             <tbody>
@@ -115,7 +118,22 @@
                         <td>{{ $appointment->user->name ?? 'N/A' }}</td>
                         <td>{{ $appointment->appointment_date }}</td>
                         <td>{{ $appointment->appointment_time }}</td>
-                        <td>{{ $appointment->status }}</td>
+                        <td>
+
+
+                            @if ($appointment->status === 'scheduled')
+                                <span class="badge bg-warning">Scheduled</span>
+                            @elseif ($appointment->status === 'completed')
+                                <span class="badge bg-success">Completed</span>
+                            @elseif ($appointment->status === 'canceled')
+                                <span class="badge bg-danger">Canceled</span>
+                            @else
+                                <span class="badge bg-secondary">{{ ucfirst($appointment->status) }}</span>
+                            @endif
+
+
+
+
                         </td>
                     </tr>
                 @endforeach
@@ -124,28 +142,6 @@
     </div>
 
 
-
-
-    <div class="col-md-12 mt-4">
-        <h4 class="mb-4">Reviews</h4>
-        @foreach ($doctorReviews as $review)
-            <div class="feedback-item p-4 mb-3 border rounded shadow-sm">
-                <!-- Display the user's name who gave the review -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    {{-- <strong class="h5">{{ $review->user->name }}</strong> --}}
-                    <div class="star-rating">
-                        <!-- Display the rating using stars -->
-                        @for ($i = 1; $i <= 5; $i++)
-                            <i class="fas fa-star {{ $i <= $review->rating ? 'text-warning' : 'text-muted' }}"></i>
-                        @endfor
-                    </div>
-                </div>
-                <!-- Display the comment made by the user -->
-                <p class="mb-2">{{ $review->comment }}</p>
-                <small class="text-muted">Reviewed on: {{ $review->created_at->format('M d, Y') }}</small>
-            </div>
-        @endforeach
-    </div>
-
 </div>
+
 @include('doctor.apps.footer')

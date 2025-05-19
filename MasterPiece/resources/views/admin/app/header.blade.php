@@ -50,8 +50,10 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <div class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+               <div class="navbar-brand mx-4 mb-3">
+                    <a href="#">
+                        <img src="{{ asset('images/calmoram.png') }}" alt="Site Logo" style="height: 50px;">
+                    </a>
                 </div>
 
                 @php
@@ -99,6 +101,7 @@
         <a href="{{ route('admin.chart') }}" class="nav-link {{ request()->routeIs('admin.chart') ? 'active' : '' }}">
             <i class="fa fa-chart-bar me-2"></i>Charts
         </a>
+    
     </li> --}}
     <li class="nav-item">
         <a href="{{ route('admin.doctors') }}" class="nav-link {{ request()->routeIs('admin.doctors') ? 'active' : '' }}">
@@ -125,15 +128,11 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+              
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
 
@@ -188,7 +187,7 @@
                             <span class="d-none d-lg-inline-flex">{{ $user ? $user->name : 'Guest' }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">My Profile</a>
                             <a href="{{ route('logout') }}" class="dropdown-item"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Log Out

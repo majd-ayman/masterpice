@@ -22,13 +22,19 @@ class DepartmentController extends Controller
 
         return view('department', compact('departments'));
     }
-    public function showSingle()
-{
-    return view('department-single');
-}
+
+
+//     public function showSingle()
+// {
+//     return view('department-single');
+// }
+
+
 public function showDepartment($id)
 {
-    $department = Department::findOrFail($id); 
+    // $department = Department::findOrFail($id); 
+    $department = Department::with('doctor')->find($id);
+
     return view('department-single', compact('department'));
 }
 
